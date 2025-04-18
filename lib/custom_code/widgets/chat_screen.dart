@@ -220,6 +220,11 @@ class _VideoPreviewState extends State<_VideoPreview> {
 }
 
 class ChatScreen extends StatefulWidget {
+  final bool isInvitacion;
+  final String grupo; // Id del grupo
+  final String nameGrupo; // Nombre del grupo
+  final Future Function(bool? aceptada, String grupo, String nameGrupo) invitacion;
+
   const ChatScreen({
     super.key,
     this.width,
@@ -229,6 +234,10 @@ class ChatScreen extends StatefulWidget {
     required this.password,
     required this.text,
     required this.listaMensajes,
+    this.isInvitacion = false,
+    required this.grupo,
+    required this.nameGrupo,
+    required this.invitacion,
     required this.tono,
     required this.contenedorColor1,
     required this.contenedorColor2,
@@ -511,6 +520,8 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  bool _invitationSent = false;
+
   @override
   void didUpdateWidget(ChatScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -525,7 +536,11 @@ class _ChatScreenState extends State<ChatScreen> {
       _handleChatChange(
           widget.idChat); // Forzar recarga al cambiar usuario o chat
     }
-    if (widget.enviar && !oldWidget.enviar) {
+    // Si es invitación y se activa enviar, mandar mensaje de invitación
+    if (widget.isInvitacion && widget.enviar && !_invitationSent) {
+      _sendInvitationMessage();
+      _invitationSent = true;
+    } else if (widget.enviar && !oldWidget.enviar) {
       if (widget.tipo == 'texto') {
         _sendTextMessage();
       } else if (widget.tipo == 'audio') {
@@ -1022,6 +1037,7 @@ class _ChatScreenState extends State<ChatScreen> {
     } catch (e) {
       _showErrorSnackbar('Error cargando mensajes: $e');
     }
+    await _marcarMensajesComoVistos();
   }
 
   Future<void> _marcarMensajesComoVistos() async {
@@ -1192,6 +1208,7 @@ class _ChatScreenState extends State<ChatScreen> {
         height: widget.height ?? MediaQuery.of(context).size.height,
         child: Column(
           children: [
+
             Expanded(
               child: _buildMessageList(),
             )
@@ -1199,6 +1216,28 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
     );
+  }
+
+
+  // Enviar mensaje real de invitación
+  Future<void> _sendInvitationMessage() async {
+    try {
+      final newMessage = await pb.collection('mensajes').create(
+        body: {
+          'user': pb.authStore.record!.id,
+          'idChat': widget.idChat,
+          'tipo': 'invitacion',
+          'groupId': widget.grupo,
+          'groupName': widget.nameGrupo,
+          'inviterName': widget.username,
+          'fechaMensaje': _formatTime(DateTime.now()),
+          'created': DateTime.now().toIso8601String(),
+        },
+      );
+      _handleNewMessage(newMessage);
+    } catch (e) {
+      _showErrorSnackbar('Error enviando invitación: \\${e.toString()}');
+    }
   }
 
   // Método para construir la burbuja según el tipo
@@ -1663,13 +1702,16 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget _buildInvitationBubble(RecordModel message, bool isMe) {
-    final groupId = message.data['groupId'];
-    final groupName = message.data['groupName'];
-    final inviterName = message.data['inviterName'];
+    // Usar los datos del mensaje si existen, si no, usar los del widget
+    final groupName = message.data['groupName'] ?? widget.nameGrupo;
+    final inviterName = message.data['inviterName'] ?? widget.username;
 
     return GestureDetector(
       onTap: () => _showInvitationOptions(context, message),
       child: Container(
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width * 0.5,
+        ),
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
@@ -1680,33 +1722,35 @@ class _ChatScreenState extends State<ChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              // Agregado const aquí
               "🎉 Invitación a Grupo",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.blue,
               ),
             ),
-            const SizedBox(height: 8), // Agregado const aquí
-            Text("$inviterName te invita a unirte a '$groupName'"),
-            const SizedBox(height: 12), // Agregado const aquí
+            const SizedBox(height: 8),
+            Text("Has sido invitado al grupo '$groupName' por $inviterName"),
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  onPressed: () => _handleInvitationResponse(
-                      message, false), // Parámetro nombrado
+                  onPressed: () {
+                    widget.invitacion(false, widget.grupo, widget.nameGrupo);
+                    _handleInvitationResponse(message, false);
+                  },
                   child: const Text(
-                    // Agregado const aquí
                     'Rechazar',
                     style: TextStyle(color: Colors.red),
                   ),
                 ),
-                const SizedBox(width: 8), // Agregado const aquí
+                const SizedBox(width: 8),
                 ElevatedButton(
-                  onPressed: () => _handleInvitationResponse(
-                      message, true), // Parámetro nombrado
-                  child: const Text('Unirse'), // Agregado const aquí
+                  onPressed: () {
+                    widget.invitacion(true, widget.grupo, widget.nameGrupo);
+                    _handleInvitationResponse(message, true);
+                  },
+                  child: const Text('Unirse'),
                 ),
               ],
             ),
@@ -2289,6 +2333,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
     widget.listaMensajes(_formatMessages(messages));
     _scrollToBottom();
+
+    // Marcar mensajes recibidos como vistos
+    _marcarMensajesComoVistos();
 
     if (newMessage.getStringValue('user') != pb.authStore.model?.id) {
       _playNotificationSound();

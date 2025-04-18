@@ -2537,6 +2537,11 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                 FFAppState().descargar = false;
                                                 safeSetState(() {});
                                               },
+                                              grupo: '',
+                                              nameGrupo: '',
+                                              invitacion: (bool? aceptada, String grupo, String nameGrupo) async {
+                                                return;
+                                              },
                                             ),
                                           ),
                                         ),
