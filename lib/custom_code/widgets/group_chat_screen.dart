@@ -2,12 +2,14 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'index.dart'; // Imports other custom widgets
+import '/custom_code/widgets/index.dart'; // Imports other custom widgets
 import '/custom_code/actions/index.dart'; // Imports custom actions
 import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
+
+import 'index.dart'; // Imports other custom widgets
 
 import 'index.dart'; // Imports other custom widgets
 import 'package:pocketbase/src/sse/sse_message.dart';
@@ -606,7 +608,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
       final newMessage = await pb.collection('group_messages').create(
         body: {
           'user': pb.authStore.model!.id,
-          'grupoId': widget.groupId, // Usar grupo en lugar de idChat
+          'grupo': widget.groupId, // Usar relation para PocketBase
           'fechaMensaje': _formatTime(DateTime.now()),
           'imagenUrl': isUrl ? widget.audioPath : '',
           'audioLocal': !isUrl ? widget.audioPath : null,
@@ -702,7 +704,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
       // Crear cuerpo del mensaje
       final body = {
         'user': pb.authStore.model!.id,
-        'grupoId': widget.groupId, // Cambiar de idChat a grupo
+        'grupo': widget.groupId, // Usar relation para PocketBase
         'fechaMensaje': _formatTime(DateTime.now()),
         'imagenUrl': '${widget.videoUrl}?token=${pb.authStore.token}',
         'created': DateTime.now().toIso8601String(),
@@ -731,7 +733,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
       final newMessage = await pb.collection('group_messages').create(
         body: {
           'user': pb.authStore.model!.id,
-          'grupoId': widget.groupId, // Cambiar de idChat a grupo
+          'grupo': widget.groupId, // Usar relation para PocketBase
           'fechaMensaje': _formatTime(DateTime.now()),
           'mensajeUrl': isUrl ? widget.audioPath : '',
           'created': DateTime.now().toIso8601String(),
@@ -970,7 +972,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
   Future _loadMessagesForGroup(String groupId) async {
     try {
       final response = await pb.collection('group_messages').getList(
-            filter: 'grupo = "$groupId"', // Usar grupo en lugar de idChat
+            filter: 'grupoId = "$groupId"', // Usar el campo correcto
             sort: '-created',
             expand: 'user',
           );
