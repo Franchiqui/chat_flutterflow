@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:chat/backend/api_requests/_/api_manager.dart';
-
 import '../schema/structs/index.dart';
 
 import 'package:flutter/foundation.dart';

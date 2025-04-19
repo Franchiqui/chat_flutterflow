@@ -1,5 +1,3 @@
-import 'package:chat/backend/api_requests/_/api_manager.dart';
-
 import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -1290,6 +1288,18 @@ class _UsuariosChatGrupalWidgetState extends State<UsuariosChatGrupalWidget> {
                                                                               FFAppState().grupoId,
                                                                               ParamType.String,
                                                                             ),
+                                                                            'miembros':
+                                                                                serializeParam(
+                                                                              FFAppState().listaMiembrosGrupo,
+                                                                              ParamType.JSON,
+                                                                              isList: true,
+                                                                            ),
+                                                                            'lisID':
+                                                                                serializeParam(
+                                                                              FFAppState().lisID,
+                                                                              ParamType.String,
+                                                                              isList: true,
+                                                                            ),
                                                                           }.withoutNulls,
                                                                         );
                                                                       } else {
@@ -1619,6 +1629,18 @@ class _UsuariosChatGrupalWidgetState extends State<UsuariosChatGrupalWidget> {
                                                                                 serializeParam(
                                                                               FFAppState().grupoId,
                                                                               ParamType.String,
+                                                                            ),
+                                                                            'miembros':
+                                                                                serializeParam(
+                                                                              FFAppState().listaMiembrosGrupo,
+                                                                              ParamType.JSON,
+                                                                              isList: true,
+                                                                            ),
+                                                                            'lisID':
+                                                                                serializeParam(
+                                                                              FFAppState().lisID,
+                                                                              ParamType.String,
+                                                                              isList: true,
                                                                             ),
                                                                           }.withoutNulls,
                                                                         );

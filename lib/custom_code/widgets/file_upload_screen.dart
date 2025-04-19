@@ -32,9 +32,10 @@ class FileUploadScreen extends StatefulWidget {
     required this.user,
     required this.user1,
     required this.user2,
-    this.idChat, // Cambiado a opcional
+    this.idChat,
     required this.fechaMensaje,
-    this.groupId, // Cambiado a opcional
+    this.groupId,
+    this.groupName,
   });
 
   final double? width;
@@ -53,9 +54,10 @@ class FileUploadScreen extends StatefulWidget {
   final String user;
   final String user1;
   final String user2;
-  final String? idChat; // Ahora es opcional
+  final String? idChat;
   final String fechaMensaje;
-  final String? groupId; // Ahora es opcional
+  final String? groupId;
+  final String? groupName;
 
   @override
   State<FileUploadScreen> createState() => _FileUploadScreenState();
@@ -123,6 +125,7 @@ class _FileUploadScreenState extends State<FileUploadScreen> {
           'user2': widget.user2, // Verifica que widget.user2 no sea vacío
           'idChat': widget.idChat, // Puede ser nulo
           'grupoId': widget.groupId, // Puede ser nulo
+          'grupoName': widget.groupName,
           'fechaMensaje': widget.fechaMensaje.isEmpty
               ? DateTime.now().toString()
               : widget.fechaMensaje,

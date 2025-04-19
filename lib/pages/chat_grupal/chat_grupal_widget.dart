@@ -1,5 +1,3 @@
-import 'package:chat/backend/api_requests/_/api_manager.dart';
-
 import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/components/fondo_copy_widget.dart';
@@ -31,6 +29,7 @@ class ChatGrupalWidget extends StatefulWidget {
     this.fotoUrlB,
     this.userIdA,
     this.miembros,
+    this.lisID,
   });
 
   final String? nombreGrupo;
@@ -39,6 +38,7 @@ class ChatGrupalWidget extends StatefulWidget {
   final String? fotoUrlB;
   final String? userIdA;
   final List<dynamic>? miembros;
+  final List<String>? lisID;
 
   static String routeName = 'ChatGrupal';
   static String routePath = '/chatGrupal';
@@ -2688,10 +2688,10 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                                         7.0, 5.0, 0.0, 0.0),
                                                 child: Builder(
                                                   builder: (context) {
-                                                    final lisAvatar = widget!
-                                                            .miembros
-                                                            ?.toList() ??
-                                                        [];
+                                                    final lisAvatar =
+                                                        FFAppState()
+                                                            .listaMiembrosGrupo
+                                                            .toList();
 
                                                     return SingleChildScrollView(
                                                       scrollDirection:
@@ -2809,10 +2809,7 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                                         safeSetState(() {}));
                                                   },
                                                   child: Text(
-                                                    valueOrDefault<String>(
-                                                      widget!.nombreGrupo,
-                                                      'Nombre Grupo',
-                                                    ),
+                                                    FFAppState().grupoName,
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -2924,7 +2921,7 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                             textFielContainerColor:
                                                 FlutterFlowTheme.of(context)
                                                     .tertiary,
-                                            groupName: widget!.nombreGrupo!,
+                                            groupName: FFAppState().grupoName,
                                             enviar: FFAppState().enviar,
                                             audioPath: FFAppState().urlView,
                                             textoFile: _model
@@ -2946,7 +2943,8 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                             fechaTipoColor: Colors.white,
                                             fechaAudioColor: Colors.white,
                                             fechaAudioVozColor: Colors.white,
-                                            members: widget!.miembros!,
+                                            members:
+                                                FFAppState().listaMiembrosGrupo,
                                             iconInfoGrupo: Icon(
                                               Icons.groups,
                                               color:
@@ -3227,6 +3225,9 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                                                     user2: widget!
                                                                         .userIdB,
                                                                     nameB: '',
+                                                                    grupoName:
+                                                                        widget!
+                                                                            .nombreGrupo,
                                                                   ),
                                                                 ),
                                                               );
@@ -3591,6 +3592,27 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                                                             .text;
                                                                     safeSetState(
                                                                         () {});
+                                                                    await OpenAIChatGPTGroup
+                                                                        .crearMensajeGRUPOCall
+                                                                        .call(
+                                                                      user: currentUserData
+                                                                          ?.uid,
+                                                                      texto: _model
+                                                                          .textFieldChatTextController
+                                                                          .text,
+                                                                      grupoId:
+                                                                          FFAppState()
+                                                                              .grupoId,
+                                                                      nombreGrupo:
+                                                                          FFAppState()
+                                                                              .grupoName,
+                                                                      grupo: widget!
+                                                                          .grupoId,
+                                                                      miembrosJson:
+                                                                          FFAppState()
+                                                                              .listaMiembrosGrupo,
+                                                                    );
+
                                                                     _model.apiResultw69 =
                                                                         await OpenAIChatGPTGroup
                                                                             .actualizarCRUPOCall

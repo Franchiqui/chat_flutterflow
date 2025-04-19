@@ -203,6 +203,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ParamType.JSON,
               isList: true,
             ),
+            lisID: params.getParam<String>(
+              'lisID',
+              ParamType.String,
+              isList: true,
+            ),
           ),
         ),
         FFRoute(

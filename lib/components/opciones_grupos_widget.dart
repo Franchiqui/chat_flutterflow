@@ -21,10 +21,12 @@ class OpcionesGruposWidget extends StatefulWidget {
     super.key,
     this.user2,
     this.nameB,
+    this.grupoName,
   });
 
   final String? user2;
   final String? nameB;
+  final String? grupoName;
 
   @override
   State<OpcionesGruposWidget> createState() => _OpcionesGruposWidgetState();
@@ -661,6 +663,7 @@ class _OpcionesGruposWidgetState extends State<OpcionesGruposWidget> {
                                     textColor2: Colors.black,
                                     fileFieldName: 'aaaggg',
                                     groupId: FFAppState().grupoId,
+                                    groupName: widget!.grupoName,
                                     enviarFile: (file, recordId, fileName,
                                         pocketBaseFileName, type) async {
                                       FFAppState().isFile = file;

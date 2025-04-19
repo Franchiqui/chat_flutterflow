@@ -1,5 +1,3 @@
-import 'package:chat/backend/api_requests/_/api_manager.dart';
-
 import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/components/eliminar_g_r_u_p_o_widget.dart';
@@ -604,8 +602,10 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                               ),
                                                               'userIdA':
                                                                   serializeParam(
-                                                                currentUserData
-                                                                    ?.uid,
+                                                                getJsonField(
+                                                                  chatGrupalItem,
+                                                                  r'''$.user''',
+                                                                ).toString(),
                                                                 ParamType
                                                                     .String,
                                                               ),
@@ -626,6 +626,21 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                   true,
                                                                 ),
                                                                 ParamType.JSON,
+                                                                isList: true,
+                                                              ),
+                                                              'lisID':
+                                                                  serializeParam(
+                                                                (getJsonField(
+                                                                  chatGrupalItem,
+                                                                  r'''$.lisID''',
+                                                                  true,
+                                                                ) as List)
+                                                                    .map<String>(
+                                                                        (s) => s
+                                                                            .toString())
+                                                                    .toList(),
+                                                                ParamType
+                                                                    .String,
                                                                 isList: true,
                                                               ),
                                                             }.withoutNulls,
@@ -699,7 +714,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                         .sizeOf(
                                                                             context)
                                                                     .height *
-                                                                0.14,
+                                                                0.15,
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: FlutterFlowTheme
@@ -723,7 +738,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                       .max,
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
-                                                                      .spaceBetween,
+                                                                      .spaceEvenly,
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment
                                                                       .start,
@@ -901,7 +916,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                                   children: [
                                                                                     Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 7.0),
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
                                                                                       child: Text(
                                                                                         valueOrDefault<String>(
                                                                                           getJsonField(
@@ -960,7 +975,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                   children: [
                                                                                     Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 10.0),
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 7.0),
                                                                                       child: Text(
                                                                                         valueOrDefault<String>(
                                                                                           getJsonField(
@@ -1088,13 +1103,6 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                         highlightColor:
                                                             Colors.transparent,
                                                         onTap: () async {
-                                                          FFAppState().fil =
-                                                              getJsonField(
-                                                            grupoItem,
-                                                            r'''$.Miembros[:].id''',
-                                                          ).toString();
-                                                          safeSetState(() {});
-
                                                           context.pushNamed(
                                                             ChatGrupalWidget
                                                                 .routeName,
@@ -1138,6 +1146,21 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                   true,
                                                                 ),
                                                                 ParamType.JSON,
+                                                                isList: true,
+                                                              ),
+                                                              'lisID':
+                                                                  serializeParam(
+                                                                (getJsonField(
+                                                                  grupoItem,
+                                                                  r'''$.lisID''',
+                                                                  true,
+                                                                ) as List)
+                                                                    .map<String>(
+                                                                        (s) => s
+                                                                            .toString())
+                                                                    .toList(),
+                                                                ParamType
+                                                                    .String,
                                                                 isList: true,
                                                               ),
                                                             }.withoutNulls,
@@ -1211,7 +1234,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                         .sizeOf(
                                                                             context)
                                                                     .height *
-                                                                0.14,
+                                                                0.15,
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: FlutterFlowTheme
@@ -1235,7 +1258,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                       .max,
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
-                                                                      .spaceBetween,
+                                                                      .spaceEvenly,
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment
                                                                       .start,
