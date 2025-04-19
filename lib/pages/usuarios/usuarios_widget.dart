@@ -956,18 +956,29 @@ class _UsuariosWidgetState extends State<UsuariosWidget> {
                                                 ],
                                               ),
                                             ),
-                                            Stack(
-                                              children: [
-                                                if (!FFAppState().busqueda)
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 25.0,
-                                                                0.0, 0.0),
-                                                    child: Builder(
-                                                      builder: (context) {
-                                                        final users =
-                                                            OpenAIChatGPTGroup
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Stack(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                children: [
+                                                  if (!FFAppState().busqueda)
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    25.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Builder(
+                                                          builder: (context) {
+                                                            final users = OpenAIChatGPTGroup
                                                                     .leerUSERCall
                                                                     .totalItems(
                                                                       usuariosLeerUSERResponse
@@ -976,586 +987,568 @@ class _UsuariosWidgetState extends State<UsuariosWidget> {
                                                                     ?.toList() ??
                                                                 [];
 
-                                                        return ListView.builder(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          shrinkWrap: true,
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          itemCount:
-                                                              users.length,
-                                                          itemBuilder: (context,
-                                                              usersIndex) {
-                                                            final usersItem =
-                                                                users[
-                                                                    usersIndex];
-                                                            return Padding(
+                                                            return ListView
+                                                                .builder(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              shrinkWrap: true,
+                                                              scrollDirection:
+                                                                  Axis.vertical,
+                                                              itemCount:
+                                                                  users.length,
+                                                              itemBuilder:
+                                                                  (context,
+                                                                      usersIndex) {
+                                                                final usersItem =
+                                                                    users[
+                                                                        usersIndex];
+                                                                return Padding(
+                                                                  padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           0.0,
                                                                           35.0),
-                                                              child: InkWell(
-                                                                splashColor: Colors
-                                                                    .transparent,
-                                                                focusColor: Colors
-                                                                    .transparent,
-                                                                hoverColor: Colors
-                                                                    .transparent,
-                                                                highlightColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                onTap:
-                                                                    () async {
-                                                                  FFAppState()
-                                                                          .idChat =
-                                                                      random_data
-                                                                          .randomString(
-                                                                    15,
-                                                                    15,
-                                                                    true,
-                                                                    true,
-                                                                    true,
-                                                                  );
-                                                                  safeSetState(
-                                                                      () {});
-                                                                  _model.apiResultr2a =
-                                                                      await OpenAIChatGPTGroup
-                                                                          .crearCHATCall
-                                                                          .call(
-                                                                    id: FFAppState()
-                                                                        .idChat,
-                                                                    fotoUrlB:
-                                                                        getJsonField(
-                                                                      usersItem,
-                                                                      r'''$.avatar''',
-                                                                    ).toString(),
-                                                                    displayNameA:
-                                                                        currentUserData
-                                                                            ?.displayName,
-                                                                    displayNameB:
-                                                                        getJsonField(
-                                                                      usersItem,
-                                                                      r'''$.username''',
-                                                                    ).toString(),
-                                                                    fechaChat:
-                                                                        dateTimeFormat(
-                                                                            "Hm",
-                                                                            getCurrentTimestamp),
-                                                                    user1:
-                                                                        currentUserData
-                                                                            ?.uid,
-                                                                    user2:
-                                                                        getJsonField(
-                                                                      usersItem,
-                                                                      r'''$.id''',
-                                                                    ).toString(),
-                                                                    fotoUrlA:
-                                                                        currentUserData
-                                                                            ?.fotoUrl,
-                                                                  );
-
-                                                                  context
-                                                                      .pushNamed(
-                                                                    ChatWidget
-                                                                        .routeName,
-                                                                    queryParameters:
-                                                                        {
-                                                                      'displayNameB':
-                                                                          serializeParam(
-                                                                        getJsonField(
-                                                                          usersItem,
-                                                                          r'''$.username''',
-                                                                        ).toString(),
-                                                                        ParamType
-                                                                            .String,
-                                                                      ),
-                                                                      'userIdB':
-                                                                          serializeParam(
-                                                                        getJsonField(
-                                                                          usersItem,
-                                                                          r'''$.id''',
-                                                                        ).toString(),
-                                                                        ParamType
-                                                                            .String,
-                                                                      ),
-                                                                      'idChat':
-                                                                          serializeParam(
-                                                                        FFAppState()
-                                                                            .idChat,
-                                                                        ParamType
-                                                                            .String,
-                                                                      ),
-                                                                    }.withoutNulls,
-                                                                  );
-
-                                                                  safeSetState(
-                                                                      () {});
-                                                                },
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          5.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Material(
-                                                                        color: Colors
+                                                                  child:
+                                                                      InkWell(
+                                                                    splashColor:
+                                                                        Colors
                                                                             .transparent,
-                                                                        elevation:
-                                                                            8.0,
-                                                                        shape:
-                                                                            const CircleBorder(),
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              70.0,
-                                                                          height:
-                                                                              70.0,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).secondaryBackground,
-                                                                            image:
-                                                                                DecorationImage(
-                                                                              fit: BoxFit.cover,
-                                                                              image: Image.network(
-                                                                                'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
-                                                                                  usersItem,
-                                                                                  r'''$.id''',
-                                                                                ).toString()}/${getJsonField(
-                                                                                  usersItem,
-                                                                                  r'''$.avatar''',
-                                                                                ).toString()}',
-                                                                              ).image,
-                                                                            ),
-                                                                            shape:
-                                                                                BoxShape.circle,
-                                                                            border:
-                                                                                Border.all(
-                                                                              color: FlutterFlowTheme.of(context).secondaryText,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Flexible(
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.start,
-                                                                          children: [
-                                                                            Material(
-                                                                              color: Colors.transparent,
-                                                                              elevation: 8.0,
-                                                                              shape: RoundedRectangleBorder(
-                                                                                borderRadius: BorderRadius.circular(10.0),
-                                                                              ),
-                                                                              child: Container(
-                                                                                width: MediaQuery.sizeOf(context).width * 0.629,
-                                                                                height: 50.4,
-                                                                                decoration: BoxDecoration(
-                                                                                  boxShadow: [
-                                                                                    BoxShadow(
-                                                                                      blurRadius: 4.0,
-                                                                                      color: Color(0xB2FFFFFF),
-                                                                                      offset: Offset(
-                                                                                        0.0,
-                                                                                        2.0,
-                                                                                      ),
-                                                                                    )
-                                                                                  ],
-                                                                                  gradient: LinearGradient(
-                                                                                    colors: [
-                                                                                      Color(0xFFB9B0F4),
-                                                                                      Color(0x3339D2C0)
-                                                                                    ],
-                                                                                    stops: [
-                                                                                      0.0,
-                                                                                      1.0
-                                                                                    ],
-                                                                                    begin: AlignmentDirectional(0.0, -1.0),
-                                                                                    end: AlignmentDirectional(0, 1.0),
-                                                                                  ),
-                                                                                  borderRadius: BorderRadius.circular(10.0),
-                                                                                ),
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                  children: [
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 0.0),
-                                                                                      child: Row(
-                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                        children: [
-                                                                                          Text(
-                                                                                            valueOrDefault<String>(
-                                                                                              getJsonField(
-                                                                                                usersItem,
-                                                                                                r'''$.username''',
-                                                                                              )?.toString(),
-                                                                                              'Antonio Martin Gonzales',
-                                                                                            ),
-                                                                                            style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                                  fontFamily: 'Outfit',
-                                                                                                  color: Color(0xFF211783),
-                                                                                                  fontSize: 18.0,
-                                                                                                  letterSpacing: 0.0,
-                                                                                                ),
-                                                                                          ),
-                                                                                        ],
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                if (FFAppState().busqueda)
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 25.0,
-                                                                0.0, 0.0),
-                                                    child: Builder(
-                                                      builder: (context) {
-                                                        final users =
-                                                            OpenAIChatGPTGroup
-                                                                    .leerUSERCall
-                                                                    .totalItems(
-                                                                      usuariosLeerUSERResponse
-                                                                          .jsonBody,
-                                                                    )
-                                                                    ?.toList() ??
-                                                                [];
-
-                                                        return ListView.builder(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          shrinkWrap: true,
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          itemCount:
-                                                              users.length,
-                                                          itemBuilder: (context,
-                                                              usersIndex) {
-                                                            final usersItem =
-                                                                users[
-                                                                    usersIndex];
-                                                            return Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          35.0),
-                                                              child: InkWell(
-                                                                splashColor: Colors
-                                                                    .transparent,
-                                                                focusColor: Colors
-                                                                    .transparent,
-                                                                hoverColor: Colors
-                                                                    .transparent,
-                                                                highlightColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                onTap:
-                                                                    () async {
-                                                                  FFAppState()
-                                                                          .idChat =
-                                                                      random_data
-                                                                          .randomString(
-                                                                    15,
-                                                                    15,
-                                                                    true,
-                                                                    true,
-                                                                    true,
-                                                                  );
-                                                                  safeSetState(
-                                                                      () {});
-                                                                  _model.apiResultr2aa =
-                                                                      await OpenAIChatGPTGroup
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      FFAppState()
+                                                                              .idChat =
+                                                                          random_data
+                                                                              .randomString(
+                                                                        15,
+                                                                        15,
+                                                                        true,
+                                                                        true,
+                                                                        true,
+                                                                      );
+                                                                      safeSetState(
+                                                                          () {});
+                                                                      _model.apiResultr2a = await OpenAIChatGPTGroup
                                                                           .crearCHATCall
                                                                           .call(
-                                                                    id: FFAppState()
-                                                                        .idChat,
-                                                                    fotoUrlB:
-                                                                        getJsonField(
-                                                                      usersItem,
-                                                                      r'''$.avatar''',
-                                                                    ).toString(),
-                                                                    displayNameA:
-                                                                        currentUserData
-                                                                            ?.displayName,
-                                                                    displayNameB:
-                                                                        getJsonField(
-                                                                      usersItem,
-                                                                      r'''$.username''',
-                                                                    ).toString(),
-                                                                    fechaChat: dateTimeFormat(
-                                                                        "d/M/y",
-                                                                        getCurrentTimestamp),
-                                                                    user1:
-                                                                        currentUserData
-                                                                            ?.uid,
-                                                                    user2:
-                                                                        getJsonField(
-                                                                      usersItem,
-                                                                      r'''$.id''',
-                                                                    ).toString(),
-                                                                    fotoUrlA:
-                                                                        currentUserData
-                                                                            ?.fotoUrl,
-                                                                    horaChat:
-                                                                        dateTimeFormat(
-                                                                            "Hm",
-                                                                            getCurrentTimestamp),
-                                                                  );
-
-                                                                  await OpenAIChatGPTGroup
-                                                                      .crearMENSAJECall
-                                                                      .call(
-                                                                    user1:
-                                                                        currentUserData
-                                                                            ?.uid,
-                                                                    user2:
-                                                                        getJsonField(
-                                                                      usersItem,
-                                                                      r'''$.id''',
-                                                                    ).toString(),
-                                                                    idChat: FFAppState()
-                                                                        .idChat,
-                                                                    fechaMensaje:
-                                                                        dateTimeFormat(
-                                                                            "Hm",
-                                                                            getCurrentTimestamp),
-                                                                  );
-
-                                                                  context
-                                                                      .pushNamed(
-                                                                    ChatWidget
-                                                                        .routeName,
-                                                                    queryParameters:
-                                                                        {
-                                                                      'displayNameB':
-                                                                          serializeParam(
-                                                                        getJsonField(
-                                                                          usersItem,
-                                                                          r'''$.username''',
-                                                                        ).toString(),
-                                                                        ParamType
-                                                                            .String,
-                                                                      ),
-                                                                      'userIdB':
-                                                                          serializeParam(
-                                                                        getJsonField(
-                                                                          usersItem,
-                                                                          r'''$.id''',
-                                                                        ).toString(),
-                                                                        ParamType
-                                                                            .String,
-                                                                      ),
-                                                                      'idChat':
-                                                                          serializeParam(
-                                                                        FFAppState()
+                                                                        id: FFAppState()
                                                                             .idChat,
-                                                                        ParamType
-                                                                            .String,
-                                                                      ),
-                                                                      'fotoUrlB':
-                                                                          serializeParam(
-                                                                        getJsonField(
+                                                                        fotoUrlB:
+                                                                            getJsonField(
                                                                           usersItem,
                                                                           r'''$.avatar''',
                                                                         ).toString(),
-                                                                        ParamType
-                                                                            .String,
-                                                                      ),
-                                                                    }.withoutNulls,
-                                                                  );
+                                                                        displayNameA:
+                                                                            currentUserData?.displayName,
+                                                                        displayNameB:
+                                                                            getJsonField(
+                                                                          usersItem,
+                                                                          r'''$.username''',
+                                                                        ).toString(),
+                                                                        fechaChat: dateTimeFormat(
+                                                                            "Hm",
+                                                                            getCurrentTimestamp),
+                                                                        user1: currentUserData
+                                                                            ?.uid,
+                                                                        user2:
+                                                                            getJsonField(
+                                                                          usersItem,
+                                                                          r'''$.id''',
+                                                                        ).toString(),
+                                                                        fotoUrlA:
+                                                                            currentUserData?.fotoUrl,
+                                                                      );
 
-                                                                  safeSetState(
-                                                                      () {});
-                                                                },
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          5.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Material(
-                                                                        color: Colors
-                                                                            .transparent,
-                                                                        elevation:
-                                                                            8.0,
-                                                                        shape:
-                                                                            const CircleBorder(),
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              70.0,
-                                                                          height:
-                                                                              70.0,
-                                                                          decoration:
-                                                                              BoxDecoration(
+                                                                      context
+                                                                          .pushNamed(
+                                                                        ChatWidget
+                                                                            .routeName,
+                                                                        queryParameters:
+                                                                            {
+                                                                          'displayNameB':
+                                                                              serializeParam(
+                                                                            getJsonField(
+                                                                              usersItem,
+                                                                              r'''$.username''',
+                                                                            ).toString(),
+                                                                            ParamType.String,
+                                                                          ),
+                                                                          'userIdB':
+                                                                              serializeParam(
+                                                                            getJsonField(
+                                                                              usersItem,
+                                                                              r'''$.id''',
+                                                                            ).toString(),
+                                                                            ParamType.String,
+                                                                          ),
+                                                                          'idChat':
+                                                                              serializeParam(
+                                                                            FFAppState().idChat,
+                                                                            ParamType.String,
+                                                                          ),
+                                                                        }.withoutNulls,
+                                                                      );
+
+                                                                      safeSetState(
+                                                                          () {});
+                                                                    },
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Material(
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).secondaryBackground,
-                                                                            image:
-                                                                                DecorationImage(
-                                                                              fit: BoxFit.cover,
-                                                                              image: Image.network(
-                                                                                'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
-                                                                                  usersItem,
-                                                                                  r'''$.id''',
-                                                                                ).toString()}/${getJsonField(
-                                                                                  usersItem,
-                                                                                  r'''$.avatar''',
-                                                                                ).toString()}',
-                                                                              ).image,
-                                                                            ),
+                                                                                Colors.transparent,
+                                                                            elevation:
+                                                                                8.0,
                                                                             shape:
-                                                                                BoxShape.circle,
-                                                                            border:
-                                                                                Border.all(
-                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                const CircleBorder(),
+                                                                            child:
+                                                                                Container(
+                                                                              width: 70.0,
+                                                                              height: 70.0,
+                                                                              decoration: BoxDecoration(
+                                                                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                image: DecorationImage(
+                                                                                  fit: BoxFit.cover,
+                                                                                  image: Image.network(
+                                                                                    'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
+                                                                                      usersItem,
+                                                                                      r'''$.id''',
+                                                                                    ).toString()}/${getJsonField(
+                                                                                      usersItem,
+                                                                                      r'''$.avatar''',
+                                                                                    ).toString()}',
+                                                                                  ).image,
+                                                                                ),
+                                                                                shape: BoxShape.circle,
+                                                                                border: Border.all(
+                                                                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                ),
+                                                                              ),
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                      ),
-                                                                    ),
-                                                                    Flexible(
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.start,
-                                                                          children: [
-                                                                            Material(
-                                                                              color: Colors.transparent,
-                                                                              elevation: 8.0,
-                                                                              shape: RoundedRectangleBorder(
-                                                                                borderRadius: BorderRadius.circular(10.0),
-                                                                              ),
-                                                                              child: Container(
-                                                                                width: MediaQuery.sizeOf(context).width * 0.629,
-                                                                                height: 50.4,
-                                                                                decoration: BoxDecoration(
-                                                                                  boxShadow: [
-                                                                                    BoxShadow(
-                                                                                      blurRadius: 4.0,
-                                                                                      color: Color(0xB2FFFFFF),
-                                                                                      offset: Offset(
-                                                                                        0.0,
-                                                                                        2.0,
-                                                                                      ),
-                                                                                    )
-                                                                                  ],
-                                                                                  gradient: LinearGradient(
-                                                                                    colors: [
-                                                                                      Color(0xFFB9B0F4),
-                                                                                      Color(0x3339D2C0)
-                                                                                    ],
-                                                                                    stops: [
-                                                                                      0.0,
-                                                                                      1.0
-                                                                                    ],
-                                                                                    begin: AlignmentDirectional(0.0, -1.0),
-                                                                                    end: AlignmentDirectional(0, 1.0),
+                                                                        Flexible(
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                5.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                              children: [
+                                                                                Material(
+                                                                                  color: Colors.transparent,
+                                                                                  elevation: 8.0,
+                                                                                  shape: RoundedRectangleBorder(
+                                                                                    borderRadius: BorderRadius.circular(10.0),
                                                                                   ),
-                                                                                  borderRadius: BorderRadius.circular(10.0),
-                                                                                ),
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                  children: [
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 0.0),
-                                                                                      child: Row(
-                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                        children: [
-                                                                                          Text(
-                                                                                            valueOrDefault<String>(
-                                                                                              getJsonField(
-                                                                                                usersItem,
-                                                                                                r'''$.username''',
-                                                                                              )?.toString(),
-                                                                                              'Antonio Martin Gonzales',
-                                                                                            ),
-                                                                                            style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                                  fontFamily: 'Outfit',
-                                                                                                  color: Color(0xFF211783),
-                                                                                                  fontSize: 18.0,
-                                                                                                  letterSpacing: 0.0,
-                                                                                                ),
+                                                                                  child: Container(
+                                                                                    width: MediaQuery.sizeOf(context).width * 0.629,
+                                                                                    height: 50.4,
+                                                                                    decoration: BoxDecoration(
+                                                                                      boxShadow: [
+                                                                                        BoxShadow(
+                                                                                          blurRadius: 4.0,
+                                                                                          color: Color(0xB2FFFFFF),
+                                                                                          offset: Offset(
+                                                                                            0.0,
+                                                                                            2.0,
                                                                                           ),
+                                                                                        )
+                                                                                      ],
+                                                                                      gradient: LinearGradient(
+                                                                                        colors: [
+                                                                                          Color(0xFFB9B0F4),
+                                                                                          Color(0x3339D2C0)
                                                                                         ],
+                                                                                        stops: [0.0, 1.0],
+                                                                                        begin: AlignmentDirectional(0.0, -1.0),
+                                                                                        end: AlignmentDirectional(0, 1.0),
                                                                                       ),
+                                                                                      borderRadius: BorderRadius.circular(10.0),
                                                                                     ),
-                                                                                  ],
+                                                                                    child: Column(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                      children: [
+                                                                                        Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 0.0),
+                                                                                          child: Row(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                                                            children: [
+                                                                                              Text(
+                                                                                                valueOrDefault<String>(
+                                                                                                  getJsonField(
+                                                                                                    usersItem,
+                                                                                                    r'''$.username''',
+                                                                                                  )?.toString(),
+                                                                                                  'Antonio Martin Gonzales',
+                                                                                                ),
+                                                                                                style: FlutterFlowTheme.of(context).headlineLarge.override(
+                                                                                                      fontFamily: 'Outfit',
+                                                                                                      color: Color(0xFF211783),
+                                                                                                      fontSize: 18.0,
+                                                                                                      letterSpacing: 0.0,
+                                                                                                    ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          },
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  if (FFAppState().busqueda)
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    25.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Builder(
+                                                          builder: (context) {
+                                                            final users = OpenAIChatGPTGroup
+                                                                    .leerUSERCall
+                                                                    .totalItems(
+                                                                      usuariosLeerUSERResponse
+                                                                          .jsonBody,
+                                                                    )
+                                                                    ?.toList() ??
+                                                                [];
+
+                                                            return ListView
+                                                                .builder(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              shrinkWrap: true,
+                                                              scrollDirection:
+                                                                  Axis.vertical,
+                                                              itemCount:
+                                                                  users.length,
+                                                              itemBuilder:
+                                                                  (context,
+                                                                      usersIndex) {
+                                                                final usersItem =
+                                                                    users[
+                                                                        usersIndex];
+                                                                return Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          35.0),
+                                                                  child:
+                                                                      InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      FFAppState()
+                                                                              .idChat =
+                                                                          random_data
+                                                                              .randomString(
+                                                                        15,
+                                                                        15,
+                                                                        true,
+                                                                        true,
+                                                                        true,
+                                                                      );
+                                                                      safeSetState(
+                                                                          () {});
+                                                                      _model.apiResultr2aa = await OpenAIChatGPTGroup
+                                                                          .crearCHATCall
+                                                                          .call(
+                                                                        id: FFAppState()
+                                                                            .idChat,
+                                                                        fotoUrlB:
+                                                                            getJsonField(
+                                                                          usersItem,
+                                                                          r'''$.avatar''',
+                                                                        ).toString(),
+                                                                        displayNameA:
+                                                                            currentUserData?.displayName,
+                                                                        displayNameB:
+                                                                            getJsonField(
+                                                                          usersItem,
+                                                                          r'''$.username''',
+                                                                        ).toString(),
+                                                                        fechaChat: dateTimeFormat(
+                                                                            "d/M/y",
+                                                                            getCurrentTimestamp),
+                                                                        user1: currentUserData
+                                                                            ?.uid,
+                                                                        user2:
+                                                                            getJsonField(
+                                                                          usersItem,
+                                                                          r'''$.id''',
+                                                                        ).toString(),
+                                                                        fotoUrlA:
+                                                                            currentUserData?.fotoUrl,
+                                                                        horaChat: dateTimeFormat(
+                                                                            "Hm",
+                                                                            getCurrentTimestamp),
+                                                                      );
+
+                                                                      await OpenAIChatGPTGroup
+                                                                          .crearMENSAJECall
+                                                                          .call(
+                                                                        user1: currentUserData
+                                                                            ?.uid,
+                                                                        user2:
+                                                                            getJsonField(
+                                                                          usersItem,
+                                                                          r'''$.id''',
+                                                                        ).toString(),
+                                                                        idChat:
+                                                                            FFAppState().idChat,
+                                                                        fechaMensaje: dateTimeFormat(
+                                                                            "Hm",
+                                                                            getCurrentTimestamp),
+                                                                      );
+
+                                                                      context
+                                                                          .pushNamed(
+                                                                        ChatWidget
+                                                                            .routeName,
+                                                                        queryParameters:
+                                                                            {
+                                                                          'displayNameB':
+                                                                              serializeParam(
+                                                                            getJsonField(
+                                                                              usersItem,
+                                                                              r'''$.username''',
+                                                                            ).toString(),
+                                                                            ParamType.String,
+                                                                          ),
+                                                                          'userIdB':
+                                                                              serializeParam(
+                                                                            getJsonField(
+                                                                              usersItem,
+                                                                              r'''$.id''',
+                                                                            ).toString(),
+                                                                            ParamType.String,
+                                                                          ),
+                                                                          'idChat':
+                                                                              serializeParam(
+                                                                            FFAppState().idChat,
+                                                                            ParamType.String,
+                                                                          ),
+                                                                          'fotoUrlB':
+                                                                              serializeParam(
+                                                                            getJsonField(
+                                                                              usersItem,
+                                                                              r'''$.avatar''',
+                                                                            ).toString(),
+                                                                            ParamType.String,
+                                                                          ),
+                                                                        }.withoutNulls,
+                                                                      );
+
+                                                                      safeSetState(
+                                                                          () {});
+                                                                    },
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Material(
+                                                                            color:
+                                                                                Colors.transparent,
+                                                                            elevation:
+                                                                                8.0,
+                                                                            shape:
+                                                                                const CircleBorder(),
+                                                                            child:
+                                                                                Container(
+                                                                              width: 70.0,
+                                                                              height: 70.0,
+                                                                              decoration: BoxDecoration(
+                                                                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                image: DecorationImage(
+                                                                                  fit: BoxFit.cover,
+                                                                                  image: Image.network(
+                                                                                    'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
+                                                                                      usersItem,
+                                                                                      r'''$.id''',
+                                                                                    ).toString()}/${getJsonField(
+                                                                                      usersItem,
+                                                                                      r'''$.avatar''',
+                                                                                    ).toString()}',
+                                                                                  ).image,
+                                                                                ),
+                                                                                shape: BoxShape.circle,
+                                                                                border: Border.all(
+                                                                                  color: FlutterFlowTheme.of(context).secondaryText,
                                                                                 ),
                                                                               ),
                                                                             ),
-                                                                          ],
+                                                                          ),
                                                                         ),
-                                                                      ),
+                                                                        Flexible(
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                5.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                              children: [
+                                                                                Material(
+                                                                                  color: Colors.transparent,
+                                                                                  elevation: 8.0,
+                                                                                  shape: RoundedRectangleBorder(
+                                                                                    borderRadius: BorderRadius.circular(10.0),
+                                                                                  ),
+                                                                                  child: Container(
+                                                                                    width: MediaQuery.sizeOf(context).width * 0.629,
+                                                                                    height: 50.4,
+                                                                                    decoration: BoxDecoration(
+                                                                                      boxShadow: [
+                                                                                        BoxShadow(
+                                                                                          blurRadius: 4.0,
+                                                                                          color: Color(0xB2FFFFFF),
+                                                                                          offset: Offset(
+                                                                                            0.0,
+                                                                                            2.0,
+                                                                                          ),
+                                                                                        )
+                                                                                      ],
+                                                                                      gradient: LinearGradient(
+                                                                                        colors: [
+                                                                                          Color(0xFFB9B0F4),
+                                                                                          Color(0x3339D2C0)
+                                                                                        ],
+                                                                                        stops: [0.0, 1.0],
+                                                                                        begin: AlignmentDirectional(0.0, -1.0),
+                                                                                        end: AlignmentDirectional(0, 1.0),
+                                                                                      ),
+                                                                                      borderRadius: BorderRadius.circular(10.0),
+                                                                                    ),
+                                                                                    child: Column(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                      children: [
+                                                                                        Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 0.0),
+                                                                                          child: Row(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                                                            children: [
+                                                                                              Text(
+                                                                                                valueOrDefault<String>(
+                                                                                                  getJsonField(
+                                                                                                    usersItem,
+                                                                                                    r'''$.username''',
+                                                                                                  )?.toString(),
+                                                                                                  'Antonio Martin Gonzales',
+                                                                                                ),
+                                                                                                style: FlutterFlowTheme.of(context).headlineLarge.override(
+                                                                                                      fontFamily: 'Outfit',
+                                                                                                      color: Color(0xFF211783),
+                                                                                                      fontSize: 18.0,
+                                                                                                      letterSpacing: 0.0,
+                                                                                                    ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
                                                                     ),
-                                                                  ],
-                                                                ),
-                                                              ),
+                                                                  ),
+                                                                );
+                                                              },
                                                             );
                                                           },
-                                                        );
-                                                      },
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),

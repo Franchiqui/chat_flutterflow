@@ -538,41 +538,63 @@ class FFAppState extends ChangeNotifier {
     _mensajeGrupoId = value;
   }
 
-  String _miembros = '';
-  String get miembros => _miembros;
-  set miembros(String value) {
-    _miembros = value;
+  bool _isInvitacion = false;
+  bool get isInvitacion => _isInvitacion;
+  set isInvitacion(bool value) {
+    _isInvitacion = value;
   }
 
-  List<String> _listaMiembros = [];
-  List<String> get listaMiembros => _listaMiembros;
-
-  set fil(String fil) {}
-  set listaMiembros(List<String> value) {
-    _listaMiembros = value;
+  bool _invitacion = false;
+  bool get invitacion => _invitacion;
+  set invitacion(bool value) {
+    _invitacion = value;
   }
 
-  void addToListaMiembros(String value) {
-    listaMiembros.add(value);
+  String _fil = '';
+  String get fil => _fil;
+  set fil(String value) {
+    _fil = value;
   }
 
-  void removeFromListaMiembros(String value) {
-    listaMiembros.remove(value);
+  String _gruAvatar = '';
+  String get gruAvatar => _gruAvatar;
+  set gruAvatar(String value) {
+    _gruAvatar = value;
   }
 
-  void removeAtIndexFromListaMiembros(int index) {
-    listaMiembros.removeAt(index);
+  String _id = '';
+  String get id => _id;
+  set id(String value) {
+    _id = value;
   }
 
-  void updateListaMiembrosAtIndex(
+  List<String> _lisID = [];
+  List<String> get lisID => _lisID;
+  set lisID(List<String> value) {
+    _lisID = value;
+  }
+
+  void addToLisID(String value) {
+    lisID.add(value);
+  }
+
+  void removeFromLisID(String value) {
+    lisID.remove(value);
+  }
+
+  void removeAtIndexFromLisID(int index) {
+    lisID.removeAt(index);
+  }
+
+  void updateLisIDAtIndex(
     int index,
     String Function(String) updateFn,
   ) {
-    listaMiembros[index] = updateFn(_listaMiembros[index]);
+    lisID[index] = updateFn(_lisID[index]);
   }
 
-  void insertAtIndexInListaMiembros(int index, String value) {
-    listaMiembros.insert(index, value);
+  void insertAtIndexInLisID(int index, String value) {
+    lisID.insert(index, value);
   }
 }
 

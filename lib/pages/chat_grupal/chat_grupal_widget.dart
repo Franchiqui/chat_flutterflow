@@ -2897,7 +2897,6 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                                   .height *
                                               0.783,
                                           child: custom_widgets.GroupChatScreen(
-  key: ValueKey(widget!.grupoId!),
                                             width: double.infinity,
                                             height: MediaQuery.sizeOf(context)
                                                     .height *
@@ -2947,8 +2946,7 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                             fechaTipoColor: Colors.white,
                                             fechaAudioColor: Colors.white,
                                             fechaAudioVozColor: Colors.white,
-                                            members:
-                                                FFAppState().listaMiembrosGrupo,
+                                            members: widget!.miembros!,
                                             iconInfoGrupo: Icon(
                                               Icons.groups,
                                               color:
@@ -3593,27 +3591,6 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                                                             .text;
                                                                     safeSetState(
                                                                         () {});
-                                                                    await OpenAIChatGPTGroup
-                                                                        .crearMensajeGRUPOCall
-                                                                        .call(
-                                                                      user: currentUserData
-                                                                          ?.uid,
-                                                                      texto: _model
-                                                                          .textFieldChatTextController
-                                                                          .text,
-                                                                      grupoId:
-                                                                          FFAppState()
-                                                                              .grupoId,
-                                                                      nombreGrupo:
-                                                                          FFAppState()
-                                                                              .grupoName,
-                                                                      grupo: widget!
-                                                                          .grupoId,
-                                                                      miembrosJson:
-                                                                          FFAppState()
-                                                                              .listaMiembrosGrupo,
-                                                                    );
-
                                                                     _model.apiResultw69 =
                                                                         await OpenAIChatGPTGroup
                                                                             .actualizarCRUPOCall

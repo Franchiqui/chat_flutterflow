@@ -789,9 +789,9 @@ class LeerGrupoCall {
           .map((x) => castToType<String>(x))
           .withoutNulls
           .toList();
-  List<String>? miembrosID2(dynamic response) => (getJsonField(
+  List<String>? lisID(dynamic response) => (getJsonField(
         response,
-        r'''$.items[:].miembrosId''',
+        r'''$.items[:].lisID''',
         true,
       ) as List?)
           ?.withoutNulls
@@ -810,10 +810,10 @@ class CrearGRUPOCall {
     String? horaChat = '',
     String? ultimoMensaje = '',
     bool? visto,
-    List<String>? miembrosIdList,
+    List<String>? lisIDList,
   }) async {
     final baseUrl = OpenAIChatGPTGroup.getBaseUrl();
-    final miembrosId = _serializeList(miembrosIdList);
+    final lisID = _serializeList(lisIDList);
     final miembros = _serializeJson(miembrosJson, true);
 
     return ApiManager.instance.makeApiCall(
@@ -830,7 +830,7 @@ class CrearGRUPOCall {
         'horaChat': horaChat,
         'ultimoMensaje': ultimoMensaje,
         'visto': visto,
-        'miembrosId': miembrosId,
+        'lisID': lisID,
       },
       bodyType: BodyType.MULTIPART,
       returnBody: true,
@@ -951,6 +951,10 @@ class LeerMensajesGRUPOCall {
         response,
         r'''$.items[:].nombreGrupo''',
       ));
+  String? nombreGrupo2(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.items[:].grupoName''',
+      ));
 }
 
 class CrearMensajeGRUPOCall {
@@ -999,10 +1003,9 @@ class ActualizarCRUPOCall {
     String? horaChat = '',
     String? fechaChat = '',
     dynamic? miembrosJson,
-    List<String>? miembrosIdList,
   }) async {
     final baseUrl = OpenAIChatGPTGroup.getBaseUrl();
-    final miembrosId = _serializeList(miembrosIdList);
+
     final miembros = _serializeJson(miembrosJson, true);
 
     return ApiManager.instance.makeApiCall(
@@ -1016,7 +1019,6 @@ class ActualizarCRUPOCall {
         'horaChat': horaChat,
         'fechaChat': fechaChat,
         ' Miembros': miembros,
-        'miembrosId': miembrosId,
       },
       bodyType: BodyType.MULTIPART,
       returnBody: true,

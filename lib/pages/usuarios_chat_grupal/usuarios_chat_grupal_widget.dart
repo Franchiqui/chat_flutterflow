@@ -1117,18 +1117,29 @@ class _UsuariosChatGrupalWidgetState extends State<UsuariosChatGrupalWidget> {
                                                 ],
                                               ),
                                             ),
-                                            Stack(
-                                              children: [
-                                                if (!FFAppState().busqueda)
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 25.0,
-                                                                0.0, 0.0),
-                                                    child: Builder(
-                                                      builder: (context) {
-                                                        final users =
-                                                            OpenAIChatGPTGroup
+                                            Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Stack(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                children: [
+                                                  if (!FFAppState().busqueda)
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    25.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Builder(
+                                                          builder: (context) {
+                                                            final users = OpenAIChatGPTGroup
                                                                     .leerUSERCall
                                                                     .totalItems(
                                                                       usuariosChatGrupalLeerUSERResponse
@@ -1137,331 +1148,327 @@ class _UsuariosChatGrupalWidgetState extends State<UsuariosChatGrupalWidget> {
                                                                     ?.toList() ??
                                                                 [];
 
-                                                        return ListView.builder(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          shrinkWrap: true,
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          itemCount:
-                                                              users.length,
-                                                          itemBuilder: (context,
-                                                              usersIndex) {
-                                                            final usersItem =
-                                                                users[
-                                                                    usersIndex];
-                                                            return Padding(
+                                                            return ListView
+                                                                .builder(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              shrinkWrap: true,
+                                                              scrollDirection:
+                                                                  Axis.vertical,
+                                                              itemCount:
+                                                                  users.length,
+                                                              itemBuilder:
+                                                                  (context,
+                                                                      usersIndex) {
+                                                                final usersItem =
+                                                                    users[
+                                                                        usersIndex];
+                                                                return Padding(
+                                                                  padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           0.0,
                                                                           35.0),
-                                                              child: InkWell(
-                                                                splashColor: Colors
-                                                                    .transparent,
-                                                                focusColor: Colors
-                                                                    .transparent,
-                                                                hoverColor: Colors
-                                                                    .transparent,
-                                                                highlightColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                onTap:
-                                                                    () async {
-                                                                  if (_model.textController2
-                                                                              .text !=
-                                                                          null &&
-                                                                      _model.textController2
-                                                                              .text !=
-                                                                          '') {
-                                                                    FFAppState()
-                                                                            .grupoId =
-                                                                        random_data
-                                                                            .randomString(
-                                                                      15,
-                                                                      15,
-                                                                      true,
-                                                                      true,
-                                                                      true,
-                                                                    );
-                                                                    FFAppState()
-                                                                            .miembroGrupo =
-                                                                        <String,
-                                                                            dynamic>{
-                                                                      'id': currentUserData
-                                                                          ?.uid,
-                                                                      'nombre':
-                                                                          currentUserData
-                                                                              ?.displayName,
-                                                                      'avatar':
-                                                                          currentUserData
-                                                                              ?.fotoUrl,
-                                                                    };
-                                                                    FFAppState()
-                                                                        .addToListaMiembrosGrupo(
-                                                                            FFAppState().miembroGrupo);
-                                                                    FFAppState()
-                                                                            .grupoName =
-                                                                        widget!
-                                                                            .nombreGrupo!;
-                                                                    safeSetState(
-                                                                        () {});
-                                                                    FFAppState()
-                                                                            .miembroGrupo =
-                                                                        <String,
-                                                                            dynamic>{
-                                                                      'id':
-                                                                          getJsonField(
-                                                                        usersItem,
-                                                                        r'''$.id''',
-                                                                      ),
-                                                                      'nombre':
-                                                                          getJsonField(
-                                                                        usersItem,
-                                                                        r'''$.username''',
-                                                                      ),
-                                                                      'avatar':
-                                                                          getJsonField(
-                                                                        usersItem,
-                                                                        r'''$.avatar''',
-                                                                      ),
-                                                                    };
-                                                                    FFAppState()
-                                                                        .addToListaMiembrosGrupo(
-                                                                            FFAppState().miembroGrupo);
-                                                                    safeSetState(
-                                                                        () {});
-                                                                    _model.apiResultr2aawCopy =
-                                                                        await OpenAIChatGPTGroup
+                                                                  child:
+                                                                      InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      if (_model.textController2.text !=
+                                                                              null &&
+                                                                          _model.textController2.text !=
+                                                                              '') {
+                                                                        FFAppState().grupoId =
+                                                                            random_data.randomString(
+                                                                          15,
+                                                                          15,
+                                                                          true,
+                                                                          true,
+                                                                          true,
+                                                                        );
+                                                                        FFAppState().miembroGrupo =
+                                                                            <String,
+                                                                                dynamic>{
+                                                                          'id':
+                                                                              currentUserData?.uid,
+                                                                          'nombre':
+                                                                              currentUserData?.displayName,
+                                                                          'avatar':
+                                                                              currentUserData?.fotoUrl,
+                                                                        };
+                                                                        FFAppState()
+                                                                            .addToListaMiembrosGrupo(FFAppState().miembroGrupo);
+                                                                        FFAppState().grupoName =
+                                                                            widget!.nombreGrupo!;
+                                                                        FFAppState().id =
+                                                                            currentUserData!.uid;
+                                                                        FFAppState()
+                                                                            .addToLisID(FFAppState().id);
+                                                                        safeSetState(
+                                                                            () {});
+                                                                        FFAppState().miembroGrupo =
+                                                                            <String,
+                                                                                dynamic>{
+                                                                          'id':
+                                                                              getJsonField(
+                                                                            usersItem,
+                                                                            r'''$.id''',
+                                                                          ),
+                                                                          'nombre':
+                                                                              getJsonField(
+                                                                            usersItem,
+                                                                            r'''$.username''',
+                                                                          ),
+                                                                          'avatar':
+                                                                              getJsonField(
+                                                                            usersItem,
+                                                                            r'''$.avatar''',
+                                                                          ),
+                                                                        };
+                                                                        FFAppState()
+                                                                            .addToListaMiembrosGrupo(FFAppState().miembroGrupo);
+                                                                        FFAppState().id =
+                                                                            getJsonField(
+                                                                          usersItem,
+                                                                          r'''$.id''',
+                                                                        ).toString();
+                                                                        FFAppState()
+                                                                            .addToLisID(FFAppState().id);
+                                                                        safeSetState(
+                                                                            () {});
+                                                                        _model.apiResultr2aawCopy = await OpenAIChatGPTGroup
                                                                             .crearGRUPOCall
                                                                             .call(
-                                                                      id: FFAppState()
-                                                                          .grupoId,
-                                                                      miembrosJson:
-                                                                          FFAppState()
-                                                                              .listaMiembrosGrupo,
-                                                                      user: currentUserData
-                                                                          ?.uid,
-                                                                      nombreGrupo:
-                                                                          FFAppState()
-                                                                              .grupoName,
-                                                                      fechaChat: dateTimeFormat(
-                                                                          "d/M/y",
-                                                                          getCurrentTimestamp),
-                                                                      horaChat: dateTimeFormat(
-                                                                          "Hm",
-                                                                          getCurrentTimestamp),
-                                                                      ultimoMensaje:
-                                                                          '...',
-                                                                      visto:
-                                                                          false,
-                                                                    );
-
-                                                                    context
-                                                                        .pushNamed(
-                                                                      ChatGrupalWidget
-                                                                          .routeName,
-                                                                      queryParameters:
-                                                                          {
-                                                                        'nombreGrupo':
-                                                                            serializeParam(
-                                                                          '',
-                                                                          ParamType
-                                                                              .String,
-                                                                        ),
-                                                                        'grupoId':
-                                                                            serializeParam(
-                                                                          FFAppState()
+                                                                          id: FFAppState()
                                                                               .grupoId,
-                                                                          ParamType
-                                                                              .String,
-                                                                        ),
-                                                                      }.withoutNulls,
-                                                                    );
-                                                                  } else {
-                                                                    ScaffoldMessenger.of(
-                                                                            context)
-                                                                        .showSnackBar(
-                                                                      SnackBar(
-                                                                        content:
-                                                                            Text(
-                                                                          'FALTA NOMBRE DEL GRUPO !!!',
-                                                                          style:
-                                                                              TextStyle(
-                                                                            color:
-                                                                                Colors.black,
-                                                                          ),
-                                                                        ),
-                                                                        duration:
-                                                                            Duration(milliseconds: 4000),
-                                                                        backgroundColor:
-                                                                            FlutterFlowTheme.of(context).secondary,
-                                                                      ),
-                                                                    );
-                                                                  }
+                                                                          miembrosJson:
+                                                                              FFAppState().listaMiembrosGrupo,
+                                                                          user:
+                                                                              currentUserData?.uid,
+                                                                          nombreGrupo:
+                                                                              FFAppState().grupoName,
+                                                                          fechaChat: dateTimeFormat(
+                                                                              "d/M/y",
+                                                                              getCurrentTimestamp),
+                                                                          horaChat: dateTimeFormat(
+                                                                              "Hm",
+                                                                              getCurrentTimestamp),
+                                                                          ultimoMensaje:
+                                                                              '...',
+                                                                          visto:
+                                                                              false,
+                                                                          lisIDList:
+                                                                              FFAppState().lisID,
+                                                                        );
 
-                                                                  safeSetState(
-                                                                      () {});
-                                                                },
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          5.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Material(
-                                                                        color: Colors
-                                                                            .transparent,
-                                                                        elevation:
-                                                                            8.0,
-                                                                        shape:
-                                                                            const CircleBorder(),
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              70.0,
-                                                                          height:
-                                                                              70.0,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).secondaryBackground,
-                                                                            image:
-                                                                                DecorationImage(
-                                                                              fit: BoxFit.cover,
-                                                                              image: Image.network(
-                                                                                'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
-                                                                                  usersItem,
-                                                                                  r'''$.id''',
-                                                                                ).toString()}/${getJsonField(
-                                                                                  usersItem,
-                                                                                  r'''$.avatar''',
-                                                                                ).toString()}',
-                                                                              ).image,
+                                                                        context
+                                                                            .pushNamed(
+                                                                          ChatGrupalWidget
+                                                                              .routeName,
+                                                                          queryParameters:
+                                                                              {
+                                                                            'nombreGrupo':
+                                                                                serializeParam(
+                                                                              '',
+                                                                              ParamType.String,
                                                                             ),
+                                                                            'grupoId':
+                                                                                serializeParam(
+                                                                              FFAppState().grupoId,
+                                                                              ParamType.String,
+                                                                            ),
+                                                                          }.withoutNulls,
+                                                                        );
+                                                                      } else {
+                                                                        ScaffoldMessenger.of(context)
+                                                                            .showSnackBar(
+                                                                          SnackBar(
+                                                                            content:
+                                                                                Text(
+                                                                              'FALTA NOMBRE DEL GRUPO !!!',
+                                                                              style: TextStyle(
+                                                                                color: Colors.black,
+                                                                              ),
+                                                                            ),
+                                                                            duration:
+                                                                                Duration(milliseconds: 4000),
+                                                                            backgroundColor:
+                                                                                FlutterFlowTheme.of(context).secondary,
+                                                                          ),
+                                                                        );
+                                                                      }
+
+                                                                      safeSetState(
+                                                                          () {});
+                                                                    },
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Material(
+                                                                            color:
+                                                                                Colors.transparent,
+                                                                            elevation:
+                                                                                8.0,
                                                                             shape:
-                                                                                BoxShape.circle,
-                                                                            border:
-                                                                                Border.all(
-                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                const CircleBorder(),
+                                                                            child:
+                                                                                Container(
+                                                                              width: 70.0,
+                                                                              height: 70.0,
+                                                                              decoration: BoxDecoration(
+                                                                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                image: DecorationImage(
+                                                                                  fit: BoxFit.cover,
+                                                                                  image: Image.network(
+                                                                                    'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
+                                                                                      usersItem,
+                                                                                      r'''$.id''',
+                                                                                    ).toString()}/${getJsonField(
+                                                                                      usersItem,
+                                                                                      r'''$.avatar''',
+                                                                                    ).toString()}',
+                                                                                  ).image,
+                                                                                ),
+                                                                                shape: BoxShape.circle,
+                                                                                border: Border.all(
+                                                                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                ),
+                                                                              ),
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                      ),
-                                                                    ),
-                                                                    Flexible(
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.start,
-                                                                          children: [
-                                                                            Material(
-                                                                              color: Colors.transparent,
-                                                                              elevation: 8.0,
-                                                                              shape: RoundedRectangleBorder(
-                                                                                borderRadius: BorderRadius.circular(10.0),
-                                                                              ),
-                                                                              child: Container(
-                                                                                width: MediaQuery.sizeOf(context).width * 0.629,
-                                                                                height: 50.4,
-                                                                                decoration: BoxDecoration(
-                                                                                  boxShadow: [
-                                                                                    BoxShadow(
-                                                                                      blurRadius: 4.0,
-                                                                                      color: Color(0xB2FFFFFF),
-                                                                                      offset: Offset(
-                                                                                        0.0,
-                                                                                        2.0,
-                                                                                      ),
-                                                                                    )
-                                                                                  ],
-                                                                                  gradient: LinearGradient(
-                                                                                    colors: [
-                                                                                      Color(0xFFB9B0F4),
-                                                                                      Color(0x3339D2C0)
-                                                                                    ],
-                                                                                    stops: [
-                                                                                      0.0,
-                                                                                      1.0
-                                                                                    ],
-                                                                                    begin: AlignmentDirectional(0.0, -1.0),
-                                                                                    end: AlignmentDirectional(0, 1.0),
+                                                                        Flexible(
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                5.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                              children: [
+                                                                                Material(
+                                                                                  color: Colors.transparent,
+                                                                                  elevation: 8.0,
+                                                                                  shape: RoundedRectangleBorder(
+                                                                                    borderRadius: BorderRadius.circular(10.0),
                                                                                   ),
-                                                                                  borderRadius: BorderRadius.circular(10.0),
-                                                                                ),
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                  children: [
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 0.0),
-                                                                                      child: Row(
-                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                        children: [
-                                                                                          Text(
-                                                                                            valueOrDefault<String>(
-                                                                                              getJsonField(
-                                                                                                usersItem,
-                                                                                                r'''$.username''',
-                                                                                              )?.toString(),
-                                                                                              'Antonio Martin Gonzales',
-                                                                                            ),
-                                                                                            style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                                  fontFamily: 'Outfit',
-                                                                                                  color: Color(0xFF211783),
-                                                                                                  fontSize: 18.0,
-                                                                                                  letterSpacing: 0.0,
-                                                                                                ),
+                                                                                  child: Container(
+                                                                                    width: MediaQuery.sizeOf(context).width * 0.629,
+                                                                                    height: 50.4,
+                                                                                    decoration: BoxDecoration(
+                                                                                      boxShadow: [
+                                                                                        BoxShadow(
+                                                                                          blurRadius: 4.0,
+                                                                                          color: Color(0xB2FFFFFF),
+                                                                                          offset: Offset(
+                                                                                            0.0,
+                                                                                            2.0,
                                                                                           ),
+                                                                                        )
+                                                                                      ],
+                                                                                      gradient: LinearGradient(
+                                                                                        colors: [
+                                                                                          Color(0xFFB9B0F4),
+                                                                                          Color(0x3339D2C0)
                                                                                         ],
+                                                                                        stops: [0.0, 1.0],
+                                                                                        begin: AlignmentDirectional(0.0, -1.0),
+                                                                                        end: AlignmentDirectional(0, 1.0),
                                                                                       ),
+                                                                                      borderRadius: BorderRadius.circular(10.0),
                                                                                     ),
-                                                                                  ],
+                                                                                    child: Column(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                      children: [
+                                                                                        Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 0.0),
+                                                                                          child: Row(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                                                            children: [
+                                                                                              Text(
+                                                                                                valueOrDefault<String>(
+                                                                                                  getJsonField(
+                                                                                                    usersItem,
+                                                                                                    r'''$.username''',
+                                                                                                  )?.toString(),
+                                                                                                  'Antonio Martin Gonzales',
+                                                                                                ),
+                                                                                                style: FlutterFlowTheme.of(context).headlineLarge.override(
+                                                                                                      fontFamily: 'Outfit',
+                                                                                                      color: Color(0xFF211783),
+                                                                                                      fontSize: 18.0,
+                                                                                                      letterSpacing: 0.0,
+                                                                                                    ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
                                                                                 ),
-                                                                              ),
+                                                                              ],
                                                                             ),
-                                                                          ],
+                                                                          ),
                                                                         ),
-                                                                      ),
+                                                                      ],
                                                                     ),
-                                                                  ],
-                                                                ),
-                                                              ),
+                                                                  ),
+                                                                );
+                                                              },
                                                             );
                                                           },
-                                                        );
-                                                      },
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                                if (FFAppState().busqueda)
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 25.0,
-                                                                0.0, 0.0),
-                                                    child: Builder(
-                                                      builder: (context) {
-                                                        final users =
-                                                            OpenAIChatGPTGroup
+                                                  if (FFAppState().busqueda)
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    25.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Builder(
+                                                          builder: (context) {
+                                                            final users = OpenAIChatGPTGroup
                                                                     .leerUSERCall
                                                                     .totalItems(
                                                                       usuariosChatGrupalLeerUSERResponse
@@ -1470,325 +1477,314 @@ class _UsuariosChatGrupalWidgetState extends State<UsuariosChatGrupalWidget> {
                                                                     ?.toList() ??
                                                                 [];
 
-                                                        return ListView.builder(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          shrinkWrap: true,
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          itemCount:
-                                                              users.length,
-                                                          itemBuilder: (context,
-                                                              usersIndex) {
-                                                            final usersItem =
-                                                                users[
-                                                                    usersIndex];
-                                                            return Padding(
+                                                            return ListView
+                                                                .builder(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              shrinkWrap: true,
+                                                              scrollDirection:
+                                                                  Axis.vertical,
+                                                              itemCount:
+                                                                  users.length,
+                                                              itemBuilder:
+                                                                  (context,
+                                                                      usersIndex) {
+                                                                final usersItem =
+                                                                    users[
+                                                                        usersIndex];
+                                                                return Padding(
+                                                                  padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           0.0,
                                                                           35.0),
-                                                              child: InkWell(
-                                                                splashColor: Colors
-                                                                    .transparent,
-                                                                focusColor: Colors
-                                                                    .transparent,
-                                                                hoverColor: Colors
-                                                                    .transparent,
-                                                                highlightColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                onTap:
-                                                                    () async {
-                                                                  if (_model.textController2
-                                                                              .text !=
-                                                                          null &&
-                                                                      _model.textController2
-                                                                              .text !=
-                                                                          '') {
-                                                                    FFAppState()
-                                                                            .grupoId =
-                                                                        random_data
-                                                                            .randomString(
-                                                                      15,
-                                                                      15,
-                                                                      true,
-                                                                      true,
-                                                                      true,
-                                                                    );
-                                                                    FFAppState()
-                                                                            .miembroGrupo =
-                                                                        <String,
-                                                                            dynamic>{
-                                                                      'id': currentUserData
-                                                                          ?.uid,
-                                                                      'nombre':
-                                                                          currentUserData
-                                                                              ?.displayName,
-                                                                      'avatar':
-                                                                          currentUserData
-                                                                              ?.fotoUrl,
-                                                                    };
-                                                                    FFAppState()
-                                                                        .addToListaMiembrosGrupo(
-                                                                            FFAppState().miembroGrupo);
-                                                                    FFAppState()
-                                                                            .grupoName =
-                                                                        _model
+                                                                  child:
+                                                                      InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      if (_model.textController2.text !=
+                                                                              null &&
+                                                                          _model.textController2.text !=
+                                                                              '') {
+                                                                        FFAppState().grupoId =
+                                                                            random_data.randomString(
+                                                                          15,
+                                                                          15,
+                                                                          true,
+                                                                          true,
+                                                                          true,
+                                                                        );
+                                                                        FFAppState().miembroGrupo =
+                                                                            <String,
+                                                                                dynamic>{
+                                                                          'id':
+                                                                              currentUserData?.uid,
+                                                                          'nombre':
+                                                                              currentUserData?.displayName,
+                                                                          'avatar':
+                                                                              currentUserData?.fotoUrl,
+                                                                        };
+                                                                        FFAppState()
+                                                                            .addToListaMiembrosGrupo(FFAppState().miembroGrupo);
+                                                                        FFAppState().grupoName = _model
                                                                             .textController2
                                                                             .text;
-                                                                    safeSetState(
-                                                                        () {});
-                                                                    FFAppState()
-                                                                            .miembroGrupo =
-                                                                        <String,
-                                                                            dynamic>{
-                                                                      'id':
-                                                                          getJsonField(
-                                                                        usersItem,
-                                                                        r'''$.id''',
-                                                                      ),
-                                                                      'nombre':
-                                                                          getJsonField(
-                                                                        usersItem,
-                                                                        r'''$.username''',
-                                                                      ),
-                                                                      'avatar':
-                                                                          getJsonField(
-                                                                        usersItem,
-                                                                        r'''$.avatar''',
-                                                                      ),
-                                                                    };
-                                                                    FFAppState()
-                                                                        .addToListaMiembrosGrupo(
-                                                                            FFAppState().miembroGrupo);
-                                                                    safeSetState(
-                                                                        () {});
-                                                                    _model.apiResultr2aaw =
-                                                                        await OpenAIChatGPTGroup
+                                                                        FFAppState().id =
+                                                                            currentUserData!.uid;
+                                                                        FFAppState()
+                                                                            .addToLisID(FFAppState().id);
+                                                                        safeSetState(
+                                                                            () {});
+                                                                        FFAppState().miembroGrupo =
+                                                                            <String,
+                                                                                dynamic>{
+                                                                          'id':
+                                                                              getJsonField(
+                                                                            usersItem,
+                                                                            r'''$.id''',
+                                                                          ),
+                                                                          'nombre':
+                                                                              getJsonField(
+                                                                            usersItem,
+                                                                            r'''$.username''',
+                                                                          ),
+                                                                          'avatar':
+                                                                              getJsonField(
+                                                                            usersItem,
+                                                                            r'''$.avatar''',
+                                                                          ),
+                                                                        };
+                                                                        FFAppState()
+                                                                            .addToListaMiembrosGrupo(FFAppState().miembroGrupo);
+                                                                        FFAppState().id =
+                                                                            getJsonField(
+                                                                          usersItem,
+                                                                          r'''$.id''',
+                                                                        ).toString();
+                                                                        FFAppState()
+                                                                            .addToLisID(FFAppState().id);
+                                                                        safeSetState(
+                                                                            () {});
+                                                                        _model.apiResultr2aaw = await OpenAIChatGPTGroup
                                                                             .crearGRUPOCall
                                                                             .call(
-                                                                      id: FFAppState()
-                                                                          .grupoId,
-                                                                      miembrosJson:
-                                                                          FFAppState()
-                                                                              .listaMiembrosGrupo,
-                                                                      user: currentUserData
-                                                                          ?.uid,
-                                                                      nombreGrupo:
-                                                                          FFAppState()
-                                                                              .grupoName,
-                                                                      fechaChat: dateTimeFormat(
-                                                                          "d/M/y",
-                                                                          getCurrentTimestamp),
-                                                                      horaChat: dateTimeFormat(
-                                                                          "Hm",
-                                                                          getCurrentTimestamp),
-                                                                      ultimoMensaje:
-                                                                          '...',
-                                                                      visto:
-                                                                          false,
-                                                                    );
-
-                                                                    context
-                                                                        .pushNamed(
-                                                                      ChatGrupalWidget
-                                                                          .routeName,
-                                                                      queryParameters:
-                                                                          {
-                                                                        'nombreGrupo':
-                                                                            serializeParam(
-                                                                          _model
-                                                                              .textController2
-                                                                              .text,
-                                                                          ParamType
-                                                                              .String,
-                                                                        ),
-                                                                        'grupoId':
-                                                                            serializeParam(
-                                                                          FFAppState()
+                                                                          id: FFAppState()
                                                                               .grupoId,
-                                                                          ParamType
-                                                                              .String,
-                                                                        ),
-                                                                      }.withoutNulls,
-                                                                    );
-                                                                  } else {
-                                                                    ScaffoldMessenger.of(
-                                                                            context)
-                                                                        .showSnackBar(
-                                                                      SnackBar(
-                                                                        content:
-                                                                            Text(
-                                                                          'FALTA NOMBRE DEL GRUPO !!!',
-                                                                          style:
-                                                                              TextStyle(
-                                                                            color:
-                                                                                Colors.black,
-                                                                          ),
-                                                                        ),
-                                                                        duration:
-                                                                            Duration(milliseconds: 4000),
-                                                                        backgroundColor:
-                                                                            FlutterFlowTheme.of(context).secondary,
-                                                                      ),
-                                                                    );
-                                                                  }
+                                                                          miembrosJson:
+                                                                              FFAppState().listaMiembrosGrupo,
+                                                                          user:
+                                                                              currentUserData?.uid,
+                                                                          nombreGrupo:
+                                                                              FFAppState().grupoName,
+                                                                          fechaChat: dateTimeFormat(
+                                                                              "d/M/y",
+                                                                              getCurrentTimestamp),
+                                                                          horaChat: dateTimeFormat(
+                                                                              "Hm",
+                                                                              getCurrentTimestamp),
+                                                                          ultimoMensaje:
+                                                                              '...',
+                                                                          visto:
+                                                                              false,
+                                                                          lisIDList:
+                                                                              FFAppState().lisID,
+                                                                        );
 
-                                                                  safeSetState(
-                                                                      () {});
-                                                                },
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          5.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Material(
-                                                                        color: Colors
-                                                                            .transparent,
-                                                                        elevation:
-                                                                            8.0,
-                                                                        shape:
-                                                                            const CircleBorder(),
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              70.0,
-                                                                          height:
-                                                                              70.0,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).secondaryBackground,
-                                                                            image:
-                                                                                DecorationImage(
-                                                                              fit: BoxFit.cover,
-                                                                              image: Image.network(
-                                                                                'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
-                                                                                  usersItem,
-                                                                                  r'''$.id''',
-                                                                                ).toString()}/${getJsonField(
-                                                                                  usersItem,
-                                                                                  r'''$.avatar''',
-                                                                                ).toString()}',
-                                                                              ).image,
+                                                                        context
+                                                                            .pushNamed(
+                                                                          ChatGrupalWidget
+                                                                              .routeName,
+                                                                          queryParameters:
+                                                                              {
+                                                                            'nombreGrupo':
+                                                                                serializeParam(
+                                                                              _model.textController2.text,
+                                                                              ParamType.String,
                                                                             ),
+                                                                            'grupoId':
+                                                                                serializeParam(
+                                                                              FFAppState().grupoId,
+                                                                              ParamType.String,
+                                                                            ),
+                                                                          }.withoutNulls,
+                                                                        );
+                                                                      } else {
+                                                                        ScaffoldMessenger.of(context)
+                                                                            .showSnackBar(
+                                                                          SnackBar(
+                                                                            content:
+                                                                                Text(
+                                                                              'FALTA NOMBRE DEL GRUPO !!!',
+                                                                              style: TextStyle(
+                                                                                color: Colors.black,
+                                                                              ),
+                                                                            ),
+                                                                            duration:
+                                                                                Duration(milliseconds: 4000),
+                                                                            backgroundColor:
+                                                                                FlutterFlowTheme.of(context).secondary,
+                                                                          ),
+                                                                        );
+                                                                      }
+
+                                                                      safeSetState(
+                                                                          () {});
+                                                                    },
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Material(
+                                                                            color:
+                                                                                Colors.transparent,
+                                                                            elevation:
+                                                                                8.0,
                                                                             shape:
-                                                                                BoxShape.circle,
-                                                                            border:
-                                                                                Border.all(
-                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                const CircleBorder(),
+                                                                            child:
+                                                                                Container(
+                                                                              width: 70.0,
+                                                                              height: 70.0,
+                                                                              decoration: BoxDecoration(
+                                                                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                image: DecorationImage(
+                                                                                  fit: BoxFit.cover,
+                                                                                  image: Image.network(
+                                                                                    'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
+                                                                                      usersItem,
+                                                                                      r'''$.id''',
+                                                                                    ).toString()}/${getJsonField(
+                                                                                      usersItem,
+                                                                                      r'''$.avatar''',
+                                                                                    ).toString()}',
+                                                                                  ).image,
+                                                                                ),
+                                                                                shape: BoxShape.circle,
+                                                                                border: Border.all(
+                                                                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                ),
+                                                                              ),
                                                                             ),
                                                                           ),
                                                                         ),
-                                                                      ),
-                                                                    ),
-                                                                    Flexible(
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.start,
-                                                                          children: [
-                                                                            Material(
-                                                                              color: Colors.transparent,
-                                                                              elevation: 8.0,
-                                                                              shape: RoundedRectangleBorder(
-                                                                                borderRadius: BorderRadius.circular(10.0),
-                                                                              ),
-                                                                              child: Container(
-                                                                                width: MediaQuery.sizeOf(context).width * 0.629,
-                                                                                height: 50.4,
-                                                                                decoration: BoxDecoration(
-                                                                                  boxShadow: [
-                                                                                    BoxShadow(
-                                                                                      blurRadius: 4.0,
-                                                                                      color: Color(0xB2FFFFFF),
-                                                                                      offset: Offset(
-                                                                                        0.0,
-                                                                                        2.0,
-                                                                                      ),
-                                                                                    )
-                                                                                  ],
-                                                                                  gradient: LinearGradient(
-                                                                                    colors: [
-                                                                                      Color(0xFFB9B0F4),
-                                                                                      Color(0x3339D2C0)
-                                                                                    ],
-                                                                                    stops: [
-                                                                                      0.0,
-                                                                                      1.0
-                                                                                    ],
-                                                                                    begin: AlignmentDirectional(0.0, -1.0),
-                                                                                    end: AlignmentDirectional(0, 1.0),
+                                                                        Flexible(
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                5.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                              children: [
+                                                                                Material(
+                                                                                  color: Colors.transparent,
+                                                                                  elevation: 8.0,
+                                                                                  shape: RoundedRectangleBorder(
+                                                                                    borderRadius: BorderRadius.circular(10.0),
                                                                                   ),
-                                                                                  borderRadius: BorderRadius.circular(10.0),
-                                                                                ),
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                                                  children: [
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 0.0),
-                                                                                      child: Row(
-                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                                        children: [
-                                                                                          Text(
-                                                                                            valueOrDefault<String>(
-                                                                                              getJsonField(
-                                                                                                usersItem,
-                                                                                                r'''$.username''',
-                                                                                              )?.toString(),
-                                                                                              'Antonio Martin Gonzales',
-                                                                                            ),
-                                                                                            style: FlutterFlowTheme.of(context).headlineLarge.override(
-                                                                                                  fontFamily: 'Outfit',
-                                                                                                  color: Color(0xFF211783),
-                                                                                                  fontSize: 18.0,
-                                                                                                  letterSpacing: 0.0,
-                                                                                                ),
+                                                                                  child: Container(
+                                                                                    width: MediaQuery.sizeOf(context).width * 0.629,
+                                                                                    height: 50.4,
+                                                                                    decoration: BoxDecoration(
+                                                                                      boxShadow: [
+                                                                                        BoxShadow(
+                                                                                          blurRadius: 4.0,
+                                                                                          color: Color(0xB2FFFFFF),
+                                                                                          offset: Offset(
+                                                                                            0.0,
+                                                                                            2.0,
                                                                                           ),
+                                                                                        )
+                                                                                      ],
+                                                                                      gradient: LinearGradient(
+                                                                                        colors: [
+                                                                                          Color(0xFFB9B0F4),
+                                                                                          Color(0x3339D2C0)
                                                                                         ],
+                                                                                        stops: [0.0, 1.0],
+                                                                                        begin: AlignmentDirectional(0.0, -1.0),
+                                                                                        end: AlignmentDirectional(0, 1.0),
                                                                                       ),
+                                                                                      borderRadius: BorderRadius.circular(10.0),
                                                                                     ),
-                                                                                  ],
+                                                                                    child: Column(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                      children: [
+                                                                                        Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 0.0),
+                                                                                          child: Row(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                                                            children: [
+                                                                                              Text(
+                                                                                                valueOrDefault<String>(
+                                                                                                  getJsonField(
+                                                                                                    usersItem,
+                                                                                                    r'''$.username''',
+                                                                                                  )?.toString(),
+                                                                                                  'Antonio Martin Gonzales',
+                                                                                                ),
+                                                                                                style: FlutterFlowTheme.of(context).headlineLarge.override(
+                                                                                                      fontFamily: 'Outfit',
+                                                                                                      color: Color(0xFF211783),
+                                                                                                      fontSize: 18.0,
+                                                                                                      letterSpacing: 0.0,
+                                                                                                    ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
                                                                                 ),
-                                                                              ),
+                                                                              ],
                                                                             ),
-                                                                          ],
+                                                                          ),
                                                                         ),
-                                                                      ),
+                                                                      ],
                                                                     ),
-                                                                  ],
-                                                                ),
-                                                              ),
+                                                                  ),
+                                                                );
+                                                              },
                                                             );
                                                           },
-                                                        );
-                                                      },
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),

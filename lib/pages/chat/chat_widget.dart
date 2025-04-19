@@ -1819,6 +1819,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                                               FFAppState().miembroGrupo);
                                           FFAppState().grupoName =
                                               _model.textController2.text;
+                                          FFAppState().id =
+                                              currentUserData!.uid;
+                                          FFAppState()
+                                              .addToLisID(FFAppState().id);
                                           safeSetState(() {});
                                           FFAppState().miembroGrupo =
                                               <String, dynamic>{
@@ -1828,6 +1832,9 @@ class _ChatWidgetState extends State<ChatWidget> {
                                           };
                                           FFAppState().addToListaMiembrosGrupo(
                                               FFAppState().miembroGrupo);
+                                          FFAppState().id = widget!.userIdB!;
+                                          FFAppState()
+                                              .addToLisID(FFAppState().id);
                                           safeSetState(() {});
                                           _model.apiResultr2aaw =
                                               await OpenAIChatGPTGroup
@@ -1844,16 +1851,24 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                 "Hm", getCurrentTimestamp),
                                             ultimoMensaje: '...',
                                             visto: false,
+                                            lisIDList: FFAppState().lisID,
                                           );
 
-                                          context.pushNamed(
-                                            ChatGrupalWidget.routeName,
-                                            queryParameters: {
-                                              'nombreGrupo': serializeParam(
-                                                '',
-                                                ParamType.String,
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'El Grupo ${FFAppState().grupoName}  se a creado !!!',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                ),
                                               ),
-                                            }.withoutNulls,
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                            ),
                                           );
                                         } else {
                                           ScaffoldMessenger.of(context)
@@ -2323,8 +2338,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            context.pushNamed(
-                                                GruposActivosWidget.routeName);
+                                            FFAppState().isInvitacion = true;
+                                            safeSetState(() {});
                                           },
                                           child: Icon(
                                             Icons.group_add,
@@ -2454,6 +2469,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                   Color(0xFFFF0000),
                                               fechaAudioVozColor:
                                                   Color(0xFFFF0000),
+                                              isInvitacion:
+                                                  FFAppState().isInvitacion,
+                                              grupo: FFAppState().grupoId,
+                                              nameGrupo: FFAppState().grupoName,
                                               listaMensajes: (mensaje) async {
                                                 FFAppState().mistaMensajes =
                                                     mensaje
@@ -2484,6 +2503,47 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                 );
 
                                                 safeSetState(() {});
+                                              },
+                                              invitacion: (aceptada, grupo,
+                                                  nameGrupo) async {
+                                                if (aceptada == true) {
+                                                  FFAppState().invitacion =
+                                                      aceptada!;
+                                                  FFAppState().grupoId = grupo;
+                                                  FFAppState().grupoName =
+                                                      nameGrupo;
+                                                  FFAppState().tipo =
+                                                      'invitacion';
+                                                  safeSetState(() {});
+
+                                                  context.pushNamed(
+                                                    ChatGrupalWidget.routeName,
+                                                    queryParameters: {
+                                                      'nombreGrupo':
+                                                          serializeParam(
+                                                        nameGrupo,
+                                                        ParamType.String,
+                                                      ),
+                                                      'userIdB': serializeParam(
+                                                        widget!.userIdB,
+                                                        ParamType.String,
+                                                      ),
+                                                      'grupoId': serializeParam(
+                                                        grupo,
+                                                        ParamType.String,
+                                                      ),
+                                                      'fotoUrlB':
+                                                          serializeParam(
+                                                        widget!.fotoUrlB,
+                                                        ParamType.String,
+                                                      ),
+                                                      'userIdA': serializeParam(
+                                                        currentUserData?.uid,
+                                                        ParamType.String,
+                                                      ),
+                                                    }.withoutNulls,
+                                                  );
+                                                }
                                               },
                                               onNewMessageReceived:
                                                   (tono) async {
@@ -2536,11 +2596,6 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                 );
                                                 FFAppState().descargar = false;
                                                 safeSetState(() {});
-                                              },
-                                              grupo: '',
-                                              nameGrupo: '',
-                                              invitacion: (bool? aceptada, String grupo, String nameGrupo) async {
-                                                return;
                                               },
                                             ),
                                           ),
@@ -3208,6 +3263,14 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                     FFAppState()
                                                                             .audio =
                                                                         'https://pocketbase-chat.fly.dev/api/files/gu05orqoyfhuujx/${FFAppState().audioID}/${FFAppState().audioNOMBRE}';
+                                                                    safeSetState(
+                                                                        () {});
+                                                                  } else if (FFAppState()
+                                                                          .tipo ==
+                                                                      'invitacion') {
+                                                                    FFAppState()
+                                                                            .enviar =
+                                                                        true;
                                                                     safeSetState(
                                                                         () {});
                                                                   }

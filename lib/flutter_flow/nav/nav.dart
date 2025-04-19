@@ -198,6 +198,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               'userIdA',
               ParamType.String,
             ),
+            miembros: params.getParam<dynamic>(
+              'miembros',
+              ParamType.JSON,
+              isList: true,
+            ),
           ),
         ),
         FFRoute(

@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 
 import 'index.dart'; // Imports other custom widgets
 
+import 'index.dart'; // Imports other custom widgets
+
 import 'package:pocketbase/src/sse/sse_message.dart';
 import 'package:open_file/open_file.dart';
 import 'index.dart'; // Imports other custom widgets
@@ -223,7 +225,8 @@ class ChatScreen extends StatefulWidget {
   final bool isInvitacion;
   final String grupo; // Id del grupo
   final String nameGrupo; // Nombre del grupo
-  final Future Function(bool? aceptada, String grupo, String nameGrupo) invitacion;
+  final Future Function(bool? aceptada, String grupo, String nameGrupo)
+      invitacion;
 
   const ChatScreen({
     super.key,
@@ -1208,7 +1211,6 @@ class _ChatScreenState extends State<ChatScreen> {
         height: widget.height ?? MediaQuery.of(context).size.height,
         child: Column(
           children: [
-
             Expanded(
               child: _buildMessageList(),
             )
@@ -1217,7 +1219,6 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
-
 
   // Enviar mensaje real de invitación
   Future<void> _sendInvitationMessage() async {

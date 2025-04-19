@@ -428,53 +428,16 @@ class _UsuariosActivosWidgetState extends State<UsuariosActivosWidget> {
                                 ),
                               ],
                             ),
-                            Stack(
-                              alignment: AlignmentDirectional(1.0, 1.0),
-                              children: [
-                                Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Chat Activos',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Merriweather',
-                                            fontSize: 18.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(1.0, 1.0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 3.0, 8.0),
-                                    child: Icon(
-                                      Icons.chat_bubble_outline_rounded,
-                                      color:
-                                          FlutterFlowTheme.of(context).accent2,
-                                      size: 24.0,
-                                    ),
+                            Text(
+                              'Chat Activos',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Merriweather',
+                                    fontSize: 18.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ),
-                                Align(
-                                  alignment: AlignmentDirectional(1.0, 1.0),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 7.0, 3.0),
-                                    child: Icon(
-                                      Icons.chat_bubble_outline_rounded,
-                                      color:
-                                          FlutterFlowTheme.of(context).accent3,
-                                      size: 24.0,
-                                    ),
-                                  ),
-                                ),
-                              ],
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -1480,7 +1443,20 @@ class _UsuariosActivosWidgetState extends State<UsuariosActivosWidget> {
                                     height: 60.0,
                                     decoration: BoxDecoration(
                                       color: Color(0xFF081034),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4.0,
+                                          color: Color(0x33000000),
+                                          offset: Offset(
+                                            0.0,
+                                            2.0,
+                                          ),
+                                        )
+                                      ],
                                       shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: Color(0xFFCB1BD9),
+                                      ),
                                     ),
                                     alignment: AlignmentDirectional(0.0, 1.0),
                                     child: FlutterFlowIconButton(
@@ -1525,26 +1501,49 @@ class _UsuariosActivosWidgetState extends State<UsuariosActivosWidget> {
                                           width: 60.0,
                                           height: 60.0,
                                           decoration: BoxDecoration(
-                                            color: Color(0xFF081034),
+                                            color: Colors.white,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 4.0,
+                                                color: Color(0x33000000),
+                                                offset: Offset(
+                                                  0.0,
+                                                  2.0,
+                                                ),
+                                              )
+                                            ],
                                             shape: BoxShape.circle,
                                             border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                              color: Color(0xFFCB1BD9),
                                             ),
                                           ),
-                                          alignment:
-                                              AlignmentDirectional(0.0, 1.0),
                                           child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 8.0, 12.0),
-                                            child: Icon(
-                                              Icons.chat_bubble_outline_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              size: 24.0,
+                                            padding: EdgeInsets.all(1.0),
+                                            child: Material(
+                                              color: Colors.transparent,
+                                              elevation: 15.0,
+                                              shape: const CircleBorder(),
+                                              child: Container(
+                                                width: 60.0,
+                                                height: 60.0,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFF081034),
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 1.0),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 8.0, 12.0),
+                                                  child: Icon(
+                                                    Icons
+                                                        .chat_bubble_outline_rounded,
+                                                    color: Color(0xFF95A1AC),
+                                                    size: 24.0,
+                                                  ),
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -1554,8 +1553,7 @@ class _UsuariosActivosWidgetState extends State<UsuariosActivosWidget> {
                                             0.0, 0.0, 15.0, 20.0),
                                         child: Icon(
                                           Icons.chat_bubble_outline_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
+                                          color: Color(0xFFDFC7C7),
                                           size: 24.0,
                                         ),
                                       ),
