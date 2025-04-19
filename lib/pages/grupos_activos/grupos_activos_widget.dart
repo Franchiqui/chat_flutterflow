@@ -13,6 +13,7 @@ import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import '/index.dart';
 import 'dart:async';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -46,6 +47,24 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       safeSetState(() => _model.apiRequestCompleter1 = null);
       await _model.waitForApiRequestCompleted1();
+      _model.grupooo = await OpenAIChatGPTGroup.leerGrupoCall.call();
+
+      FFAppState().fil = OpenAIChatGPTGroup.leerGrupoCall
+          .miembrosID(
+            (_model.grupooo?.jsonBody ?? ''),
+          )!
+          .where((e) => OpenAIChatGPTGroup.leerGrupoCall
+              .miembrosID(
+                (_model.grupooo?.jsonBody ?? ''),
+              )!
+              .contains(OpenAIChatGPTGroup.leerGrupoCall
+                  .miembrosID(
+                    (_model.grupooo?.jsonBody ?? ''),
+                  )
+                  ?.firstOrNull))
+          .toList()
+          .firstOrNull!;
+      safeSetState(() {});
       safeSetState(() => _model.apiRequestCompleter2 = null);
       await _model.waitForApiRequestCompleted2();
     });
@@ -599,6 +618,16 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                 ParamType
                                                                     .String,
                                                               ),
+                                                              'miembros':
+                                                                  serializeParam(
+                                                                getJsonField(
+                                                                  chatGrupalItem,
+                                                                  r'''$.Miembros''',
+                                                                  true,
+                                                                ),
+                                                                ParamType.JSON,
+                                                                isList: true,
+                                                              ),
                                                             }.withoutNulls,
                                                           );
 
@@ -670,7 +699,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                         .sizeOf(
                                                                             context)
                                                                     .height *
-                                                                0.12,
+                                                                0.14,
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: FlutterFlowTheme
@@ -688,190 +717,136 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                 width: 1.0,
                                                               ),
                                                             ),
-                                                            child: Row(
+                                                            child: Column(
                                                               mainAxisSize:
                                                                   MainAxisSize
                                                                       .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
                                                               children: [
-                                                                Container(
-                                                                  width: 100.0,
-                                                                  child: Stack(
-                                                                    children: [
-                                                                      Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            0.22,
-                                                                            -0.78),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding:
-                                                                              EdgeInsets.all(2.0),
-                                                                          child:
-                                                                              Container(
-                                                                            width:
-                                                                                50.0,
-                                                                            height:
-                                                                                50.0,
-                                                                            clipBehavior:
-                                                                                Clip.antiAlias,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              shape: BoxShape.circle,
-                                                                            ),
-                                                                            child:
-                                                                                Image.network(
-                                                                              'https://images.unsplash.com/photo-1556745753-b2904692b3cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MXwxfHNlYXJjaHwxfHxjb2ZmZWV8ZW58MHx8fHwxNzQ0MzI5MzY1fDA&ixlib=rb-4.0.3&q=80&w=1080',
-                                                                              fit: BoxFit.cover,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            -0.87,
-                                                                            0.8),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding:
-                                                                              EdgeInsets.all(2.0),
-                                                                          child:
-                                                                              Container(
-                                                                            width:
-                                                                                50.0,
-                                                                            height:
-                                                                                50.0,
-                                                                            clipBehavior:
-                                                                                Clip.antiAlias,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              shape: BoxShape.circle,
-                                                                            ),
-                                                                            child:
-                                                                                Image.network(
-                                                                              'https://images.unsplash.com/photo-1556745753-b2904692b3cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MXwxfHNlYXJjaHwxfHxjb2ZmZWV8ZW58MHx8fHwxNzQ0MzI5MzY1fDA&ixlib=rb-4.0.3&q=80&w=1080',
-                                                                              fit: BoxFit.cover,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            1.1,
-                                                                            0.8),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding:
-                                                                              EdgeInsets.all(2.0),
-                                                                          child:
-                                                                              Container(
-                                                                            width:
-                                                                                50.0,
-                                                                            height:
-                                                                                50.0,
-                                                                            clipBehavior:
-                                                                                Clip.antiAlias,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              shape: BoxShape.circle,
-                                                                            ),
-                                                                            child:
-                                                                                Image.network(
-                                                                              'https://images.unsplash.com/photo-1556745753-b2904692b3cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MXwxfHNlYXJjaHwxfHxjb2ZmZWV8ZW58MHx8fHwxNzQ0MzI5MzY1fDA&ixlib=rb-4.0.3&q=80&w=1080',
-                                                                              fit: BoxFit.cover,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0,
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          7.0,
+                                                                          5.0,
+                                                                          7.0,
                                                                           0.0),
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceEvenly,
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      Text(
-                                                                        valueOrDefault<
-                                                                            String>(
-                                                                          getJsonField(
+                                                                      child:
+                                                                          Builder(
+                                                                        builder:
+                                                                            (context) {
+                                                                          final lisAvatar =
+                                                                              getJsonField(
                                                                             chatGrupalItem,
-                                                                            r'''$.nombreGrupo''',
-                                                                          )?.toString(),
-                                                                          'Nombre Grupo',
-                                                                        ),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Readex Pro',
-                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                              fontSize: 18.0,
-                                                                              letterSpacing: 0.0,
-                                                                              fontWeight: FontWeight.w600,
+                                                                            r'''$.Miembros''',
+                                                                          ).toList();
+
+                                                                          return SingleChildScrollView(
+                                                                            scrollDirection:
+                                                                                Axis.horizontal,
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: List.generate(lisAvatar.length, (lisAvatarIndex) {
+                                                                                final lisAvatarItem = lisAvatar[lisAvatarIndex];
+                                                                                return Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 9.0, 0.0),
+                                                                                  child: Column(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    children: [
+                                                                                      Align(
+                                                                                        alignment: AlignmentDirectional(0.22, -0.78),
+                                                                                        child: Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 2.0),
+                                                                                          child: Container(
+                                                                                            width: 35.0,
+                                                                                            height: 35.0,
+                                                                                            decoration: BoxDecoration(
+                                                                                              shape: BoxShape.circle,
+                                                                                              border: Border.all(
+                                                                                                color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                              ),
+                                                                                            ),
+                                                                                            child: Container(
+                                                                                              width: 35.0,
+                                                                                              height: 35.0,
+                                                                                              clipBehavior: Clip.antiAlias,
+                                                                                              decoration: BoxDecoration(
+                                                                                                shape: BoxShape.circle,
+                                                                                              ),
+                                                                                              child: Image.network(
+                                                                                                'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
+                                                                                                  lisAvatarItem,
+                                                                                                  r'''$.id''',
+                                                                                                ).toString()}/${getJsonField(
+                                                                                                  lisAvatarItem,
+                                                                                                  r'''$.avatar''',
+                                                                                                ).toString()}',
+                                                                                                fit: BoxFit.cover,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                      AutoSizeText(
+                                                                                        valueOrDefault<String>(
+                                                                                          getJsonField(
+                                                                                            lisAvatarItem,
+                                                                                            r'''$.nombre''',
+                                                                                          )?.toString(),
+                                                                                          'Nombre',
+                                                                                        ).maybeHandleOverflow(
+                                                                                          maxChars: 10,
+                                                                                        ),
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              fontFamily: 'Readex Pro',
+                                                                                              fontSize: 8.0,
+                                                                                              letterSpacing: 0.0,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                );
+                                                                              }),
                                                                             ),
+                                                                          );
+                                                                        },
                                                                       ),
-                                                                      Text(
-                                                                        valueOrDefault<
-                                                                            String>(
-                                                                          getJsonField(
-                                                                            chatGrupalItem,
-                                                                            r'''$.ultimoMensaje''',
-                                                                          )?.toString(),
-                                                                          'Hola que tal?',
-                                                                        ).maybeHandleOverflow(
-                                                                          maxChars:
-                                                                              20,
-                                                                          replacement:
-                                                                              '…',
-                                                                        ),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Readex Pro',
-                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                              fontSize: 12.0,
-                                                                              letterSpacing: 0.0,
-                                                                            ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Expanded(
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .min,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .end,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            15.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.end,
-                                                                          children: [
-                                                                            Icon(
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          15.0,
+                                                                          0.0,
+                                                                          15.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.end,
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                8.0,
+                                                                                0.0,
+                                                                                7.0),
+                                                                            child:
+                                                                                Icon(
                                                                               Icons.done_all_sharp,
                                                                               color: colorFromCssString(
                                                                                 false.toString(),
@@ -879,48 +854,147 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                               ),
                                                                               size: 16.0,
                                                                             ),
-                                                                            Icon(
-                                                                              Icons.done_all_sharp,
-                                                                              color: Color(0xFFEEF200),
-                                                                              size: 16.0,
-                                                                            ),
-                                                                            Column(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              children: [
-                                                                                Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
-                                                                                  child: Text(
-                                                                                    valueOrDefault<String>(
-                                                                                      getJsonField(
-                                                                                        chatGrupalItem,
-                                                                                        r'''$.fechaChat''',
-                                                                                      )?.toString(),
-                                                                                      '5/3/25',
-                                                                                    ),
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Readex Pro',
-                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                          fontSize: 12.0,
-                                                                                          letterSpacing: 0.0,
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.done_all_sharp,
+                                                                            color:
+                                                                                Color(0xFFEEF200),
+                                                                            size:
+                                                                                16.0,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          7.0),
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Expanded(
+                                                                        flex: 2,
+                                                                        child:
+                                                                            Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            children: [
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                                                                                child: Column(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                  children: [
+                                                                                    Padding(
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 7.0),
+                                                                                      child: Text(
+                                                                                        valueOrDefault<String>(
+                                                                                          getJsonField(
+                                                                                            chatGrupalItem,
+                                                                                            r'''$.nombreGrupo''',
+                                                                                          )?.toString(),
+                                                                                          'Nombre Grupo',
                                                                                         ),
-                                                                                  ),
-                                                                                ),
-                                                                                Text(
-                                                                                  valueOrDefault<String>(
-                                                                                    getJsonField(
-                                                                                      chatGrupalItem,
-                                                                                      r'''$.horaChat''',
-                                                                                    )?.toString(),
-                                                                                    '12:25',
-                                                                                  ),
-                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                        fontFamily: 'Readex Pro',
-                                                                                        color: FlutterFlowTheme.of(context).primaryText,
-                                                                                        fontSize: 12.0,
-                                                                                        letterSpacing: 0.0,
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              fontFamily: 'Readex Pro',
+                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                              fontSize: 18.0,
+                                                                                              letterSpacing: 0.0,
+                                                                                              fontWeight: FontWeight.w600,
+                                                                                            ),
                                                                                       ),
+                                                                                    ),
+                                                                                    Text(
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          chatGrupalItem,
+                                                                                          r'''$.ultimoMensaje''',
+                                                                                        )?.toString(),
+                                                                                        'Hola que tal?',
+                                                                                      ).maybeHandleOverflow(
+                                                                                        maxChars: 20,
+                                                                                        replacement: '…',
+                                                                                      ),
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Readex Pro',
+                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                            fontSize: 12.0,
+                                                                                            letterSpacing: 0.0,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ],
                                                                                 ),
-                                                                              ],
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      Expanded(
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.min,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.end,
+                                                                          children: [
+                                                                            Flexible(
+                                                                              child: Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 15.0, 0.0),
+                                                                                child: Column(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                  children: [
+                                                                                    Padding(
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 10.0),
+                                                                                      child: Text(
+                                                                                        valueOrDefault<String>(
+                                                                                          getJsonField(
+                                                                                            chatGrupalItem,
+                                                                                            r'''$.fechaChat''',
+                                                                                          )?.toString(),
+                                                                                          '5/3/25',
+                                                                                        ),
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              fontFamily: 'Readex Pro',
+                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                              fontSize: 12.0,
+                                                                                              letterSpacing: 0.0,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Text(
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          chatGrupalItem,
+                                                                                          r'''$.horaChat''',
+                                                                                        )?.toString(),
+                                                                                        '12:25',
+                                                                                      ),
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Readex Pro',
+                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                            fontSize: 12.0,
+                                                                                            letterSpacing: 0.0,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
                                                                             ),
                                                                           ],
                                                                         ),
@@ -949,7 +1023,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                             .leerGrupoCall
                                                             .call(
                                                       filter:
-                                                          'filter=(miembrosId ~ \'${currentUserData?.uid}\')',
+                                                          'filter=(lisID = \'${currentUserData?.uid}\')',
                                                     )))
                                               .future,
                                           builder: (context, snapshot) {
@@ -1014,6 +1088,13 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                         highlightColor:
                                                             Colors.transparent,
                                                         onTap: () async {
+                                                          FFAppState().fil =
+                                                              getJsonField(
+                                                            grupoItem,
+                                                            r'''$.Miembros[:].id''',
+                                                          ).toString();
+                                                          safeSetState(() {});
+
                                                           context.pushNamed(
                                                             ChatGrupalWidget
                                                                 .routeName,
@@ -1042,6 +1123,22 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                 ).toString(),
                                                                 ParamType
                                                                     .String,
+                                                              ),
+                                                              'userIdB':
+                                                                  serializeParam(
+                                                                '',
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                              'miembros':
+                                                                  serializeParam(
+                                                                getJsonField(
+                                                                  grupoItem,
+                                                                  r'''$.Miembros''',
+                                                                  true,
+                                                                ),
+                                                                ParamType.JSON,
+                                                                isList: true,
                                                               ),
                                                             }.withoutNulls,
                                                           );
@@ -1114,7 +1211,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                         .sizeOf(
                                                                             context)
                                                                     .height *
-                                                                0.12,
+                                                                0.14,
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: FlutterFlowTheme
@@ -1132,190 +1229,136 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                 width: 1.0,
                                                               ),
                                                             ),
-                                                            child: Row(
+                                                            child: Column(
                                                               mainAxisSize:
                                                                   MainAxisSize
                                                                       .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
                                                               children: [
-                                                                Container(
-                                                                  width: 100.0,
-                                                                  child: Stack(
-                                                                    children: [
-                                                                      Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            0.22,
-                                                                            -0.78),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding:
-                                                                              EdgeInsets.all(2.0),
-                                                                          child:
-                                                                              Container(
-                                                                            width:
-                                                                                50.0,
-                                                                            height:
-                                                                                50.0,
-                                                                            clipBehavior:
-                                                                                Clip.antiAlias,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              shape: BoxShape.circle,
-                                                                            ),
-                                                                            child:
-                                                                                Image.network(
-                                                                              'https://images.unsplash.com/photo-1556745753-b2904692b3cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MXwxfHNlYXJjaHwxfHxjb2ZmZWV8ZW58MHx8fHwxNzQ0MzI5MzY1fDA&ixlib=rb-4.0.3&q=80&w=1080',
-                                                                              fit: BoxFit.cover,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            -0.87,
-                                                                            0.8),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding:
-                                                                              EdgeInsets.all(2.0),
-                                                                          child:
-                                                                              Container(
-                                                                            width:
-                                                                                50.0,
-                                                                            height:
-                                                                                50.0,
-                                                                            clipBehavior:
-                                                                                Clip.antiAlias,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              shape: BoxShape.circle,
-                                                                            ),
-                                                                            child:
-                                                                                Image.network(
-                                                                              'https://images.unsplash.com/photo-1556745753-b2904692b3cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MXwxfHNlYXJjaHwxfHxjb2ZmZWV8ZW58MHx8fHwxNzQ0MzI5MzY1fDA&ixlib=rb-4.0.3&q=80&w=1080',
-                                                                              fit: BoxFit.cover,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Align(
-                                                                        alignment: AlignmentDirectional(
-                                                                            1.1,
-                                                                            0.8),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding:
-                                                                              EdgeInsets.all(2.0),
-                                                                          child:
-                                                                              Container(
-                                                                            width:
-                                                                                50.0,
-                                                                            height:
-                                                                                50.0,
-                                                                            clipBehavior:
-                                                                                Clip.antiAlias,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              shape: BoxShape.circle,
-                                                                            ),
-                                                                            child:
-                                                                                Image.network(
-                                                                              'https://images.unsplash.com/photo-1556745753-b2904692b3cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MXwxfHNlYXJjaHwxfHxjb2ZmZWV8ZW58MHx8fHwxNzQ0MzI5MzY1fDA&ixlib=rb-4.0.3&q=80&w=1080',
-                                                                              fit: BoxFit.cover,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          10.0,
-                                                                          0.0,
-                                                                          0.0,
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          7.0,
+                                                                          5.0,
+                                                                          7.0,
                                                                           0.0),
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceEvenly,
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      Text(
-                                                                        valueOrDefault<
-                                                                            String>(
-                                                                          getJsonField(
+                                                                      child:
+                                                                          Builder(
+                                                                        builder:
+                                                                            (context) {
+                                                                          final lisAvatar2 =
+                                                                              getJsonField(
                                                                             grupoItem,
-                                                                            r'''$.nombreGrupo''',
-                                                                          )?.toString(),
-                                                                          'Nombre Grupo',
-                                                                        ),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Readex Pro',
-                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                              fontSize: 18.0,
-                                                                              letterSpacing: 0.0,
-                                                                              fontWeight: FontWeight.w600,
+                                                                            r'''$.Miembros''',
+                                                                          ).toList();
+
+                                                                          return SingleChildScrollView(
+                                                                            scrollDirection:
+                                                                                Axis.horizontal,
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: List.generate(lisAvatar2.length, (lisAvatar2Index) {
+                                                                                final lisAvatar2Item = lisAvatar2[lisAvatar2Index];
+                                                                                return Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(2.0, 0.0, 9.0, 0.0),
+                                                                                  child: Column(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    children: [
+                                                                                      Align(
+                                                                                        alignment: AlignmentDirectional(0.22, -0.78),
+                                                                                        child: Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 2.0),
+                                                                                          child: Container(
+                                                                                            width: 35.0,
+                                                                                            height: 35.0,
+                                                                                            decoration: BoxDecoration(
+                                                                                              shape: BoxShape.circle,
+                                                                                              border: Border.all(
+                                                                                                color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                              ),
+                                                                                            ),
+                                                                                            child: Container(
+                                                                                              width: 35.0,
+                                                                                              height: 35.0,
+                                                                                              clipBehavior: Clip.antiAlias,
+                                                                                              decoration: BoxDecoration(
+                                                                                                shape: BoxShape.circle,
+                                                                                              ),
+                                                                                              child: Image.network(
+                                                                                                'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
+                                                                                                  lisAvatar2Item,
+                                                                                                  r'''$.id''',
+                                                                                                ).toString()}/${getJsonField(
+                                                                                                  lisAvatar2Item,
+                                                                                                  r'''$.avatar''',
+                                                                                                ).toString()}',
+                                                                                                fit: BoxFit.cover,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                      AutoSizeText(
+                                                                                        valueOrDefault<String>(
+                                                                                          getJsonField(
+                                                                                            lisAvatar2Item,
+                                                                                            r'''$.nombre''',
+                                                                                          )?.toString(),
+                                                                                          'Nombre',
+                                                                                        ).maybeHandleOverflow(
+                                                                                          maxChars: 10,
+                                                                                        ),
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              fontFamily: 'Readex Pro',
+                                                                                              fontSize: 8.0,
+                                                                                              letterSpacing: 0.0,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                );
+                                                                              }),
                                                                             ),
+                                                                          );
+                                                                        },
                                                                       ),
-                                                                      Text(
-                                                                        valueOrDefault<
-                                                                            String>(
-                                                                          getJsonField(
-                                                                            grupoItem,
-                                                                            r'''$.ultimoMensaje''',
-                                                                          )?.toString(),
-                                                                          'Hola que Tal?',
-                                                                        ).maybeHandleOverflow(
-                                                                          maxChars:
-                                                                              20,
-                                                                          replacement:
-                                                                              '…',
-                                                                        ),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Readex Pro',
-                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                              fontSize: 12.0,
-                                                                              letterSpacing: 0.0,
-                                                                            ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Expanded(
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .end,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            15.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.end,
-                                                                          children: [
-                                                                            Icon(
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          15.0,
+                                                                          0.0,
+                                                                          15.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.end,
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                8.0,
+                                                                                0.0,
+                                                                                7.0),
+                                                                            child:
+                                                                                Icon(
                                                                               Icons.done_all_sharp,
                                                                               color: colorFromCssString(
                                                                                 false.toString(),
@@ -1323,48 +1366,147 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                               ),
                                                                               size: 16.0,
                                                                             ),
-                                                                            Icon(
-                                                                              Icons.done_all_sharp,
-                                                                              color: Color(0xFFEEF200),
-                                                                              size: 16.0,
-                                                                            ),
-                                                                            Column(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              children: [
-                                                                                Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
-                                                                                  child: Text(
-                                                                                    valueOrDefault<String>(
-                                                                                      getJsonField(
-                                                                                        grupoItem,
-                                                                                        r'''$.fechaChat''',
-                                                                                      )?.toString(),
-                                                                                      '5/3/25',
-                                                                                    ),
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Readex Pro',
-                                                                                          color: FlutterFlowTheme.of(context).primaryText,
-                                                                                          fontSize: 12.0,
-                                                                                          letterSpacing: 0.0,
+                                                                          ),
+                                                                          Icon(
+                                                                            Icons.done_all_sharp,
+                                                                            color:
+                                                                                Color(0xFFEEF200),
+                                                                            size:
+                                                                                16.0,
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          7.0),
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Expanded(
+                                                                        flex: 2,
+                                                                        child:
+                                                                            Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            children: [
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                                                                                child: Column(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                  children: [
+                                                                                    Padding(
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 7.0),
+                                                                                      child: Text(
+                                                                                        valueOrDefault<String>(
+                                                                                          getJsonField(
+                                                                                            grupoItem,
+                                                                                            r'''$.nombreGrupo''',
+                                                                                          )?.toString(),
+                                                                                          'Nombre Grupo',
                                                                                         ),
-                                                                                  ),
-                                                                                ),
-                                                                                Text(
-                                                                                  valueOrDefault<String>(
-                                                                                    getJsonField(
-                                                                                      grupoItem,
-                                                                                      r'''$.horaChat''',
-                                                                                    )?.toString(),
-                                                                                    '11:25',
-                                                                                  ),
-                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                        fontFamily: 'Readex Pro',
-                                                                                        color: FlutterFlowTheme.of(context).primaryText,
-                                                                                        fontSize: 12.0,
-                                                                                        letterSpacing: 0.0,
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              fontFamily: 'Readex Pro',
+                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                              fontSize: 18.0,
+                                                                                              letterSpacing: 0.0,
+                                                                                              fontWeight: FontWeight.w600,
+                                                                                            ),
                                                                                       ),
+                                                                                    ),
+                                                                                    Text(
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          grupoItem,
+                                                                                          r'''$.ultimoMensaje''',
+                                                                                        )?.toString(),
+                                                                                        'Hola que tal?',
+                                                                                      ).maybeHandleOverflow(
+                                                                                        maxChars: 20,
+                                                                                        replacement: '…',
+                                                                                      ),
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Readex Pro',
+                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                            fontSize: 12.0,
+                                                                                            letterSpacing: 0.0,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ],
                                                                                 ),
-                                                                              ],
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      Expanded(
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.min,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.end,
+                                                                          children: [
+                                                                            Flexible(
+                                                                              child: Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 15.0, 0.0),
+                                                                                child: Column(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                  children: [
+                                                                                    Padding(
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 10.0),
+                                                                                      child: Text(
+                                                                                        valueOrDefault<String>(
+                                                                                          getJsonField(
+                                                                                            grupoItem,
+                                                                                            r'''$.fechaChat''',
+                                                                                          )?.toString(),
+                                                                                          '5/3/25',
+                                                                                        ),
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              fontFamily: 'Readex Pro',
+                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                              fontSize: 12.0,
+                                                                                              letterSpacing: 0.0,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Text(
+                                                                                      valueOrDefault<String>(
+                                                                                        getJsonField(
+                                                                                          grupoItem,
+                                                                                          r'''$.horaChat''',
+                                                                                        )?.toString(),
+                                                                                        '12:25',
+                                                                                      ),
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Readex Pro',
+                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                            fontSize: 12.0,
+                                                                                            letterSpacing: 0.0,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
                                                                             ),
                                                                           ],
                                                                         ),

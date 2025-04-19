@@ -2,7 +2,7 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/widgets/index.dart'; // Imports other custom widgets
+import 'index.dart'; // Imports other custom widgets
 import '/custom_code/actions/index.dart'; // Imports custom actions
 import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
@@ -373,7 +373,8 @@ class GroupChatScreen extends StatefulWidget {
     required this.descargar,
     required this.fechaAudioVozColor,
     this.iconInfoGrupo,
-    this.filePath, // Añadir filePath como parámetro opcional
+    this.filePath,
+    required this.groupAvatarUrl,
   });
 
   final double? width;
@@ -382,14 +383,14 @@ class GroupChatScreen extends StatefulWidget {
   final String username;
   final String password;
   final String text;
-  final Future Function(List mensaje) listaMensajes;
+  final Future Function(List<dynamic> mensaje) listaMensajes;
   final String tono;
   final Color contenedorColor1;
   final Color contenedorColor2;
   final Color mensajeColor;
   final Color textFielColor;
   final Color textFielContainerColor;
-  final List members;
+  final List<dynamic> members;
   final String groupName;
   final bool enviar;
   final Future Function(bool tono) onNewMessageReceived;
@@ -410,10 +411,11 @@ class GroupChatScreen extends StatefulWidget {
       bool documento, String documentoId, String documentoName) descargar;
   final Color fechaAudioVozColor;
   final Widget? iconInfoGrupo;
-  final String? filePath; // Añadir propiedad filePath
+  final String? filePath;
+  final String groupAvatarUrl;
 
   @override
-  State createState() => _GroupChatScreenState();
+  State<GroupChatScreen> createState() => _GroupChatScreenState();
 }
 
 class _GroupChatScreenState extends State<GroupChatScreen> {
@@ -424,6 +426,8 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
   late final Future Function(bool? view, String id) viewFile;
   bool _isSubscribed = false;
   bool _isAuthenticated = false;
+  bool _isAuthenticating =
+      false; // Added variable to track authentication state
   bool _isLoadingAudio = false;
   String? _currentlyLoadingUrl;
   List messages = [];
@@ -452,12 +456,12 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
   }
 
   Future _loadGroupInfo() async {
-    try {
-      if (widget.groupId.isEmpty) {
-        throw Exception('El ID del grupo está vacío');
-      }
+    if (widget.groupId.isEmpty) {
+      debugPrint('⚠️ Grupo ID vacío - omitiendo carga');
+      return;
+    }
 
-      // Obtener información del grupo
+    try {
       final groupRecord = await pb.collection('grupos').getOne(widget.groupId);
 
       setState(() {
@@ -473,7 +477,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
         groupAvatarUrl = groupRecord.getStringValue('avatar');
       });
     } catch (e) {
-      _showErrorSnackbar('Error cargando información del grupo: $e');
+      debugPrint('🔥 Error cargando grupo: ${e.toString()}');
     }
   }
 
@@ -756,14 +760,33 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
 
   Future _authenticateUser() async {
     try {
+      setState(() => _isAuthenticating = true); // Estado de carga
+
+      // 1. Ejecutar autenticación
       await pb
           .collection('users')
           .authWithPassword(widget.username, widget.password);
-      if (pb.authStore.record == null) {
-        throw Exception('Autenticación fallida');
+
+      // 2. Verificar autenticación exitosa
+      if (pb.authStore.record == null || pb.authStore.token.isEmpty) {
+        throw Exception('Token no recibido');
       }
+
+      // 3. Actualizar estado y cargar datos
+      setState(() => _isAuthenticated = true);
+
+      // 4. Iniciar funciones dependientes de autenticación
+      await _initializeRealtime();
+      await _loadMessagesForGroup(widget.groupId);
+      await _loadGroupInfo();
     } catch (e) {
-      _showErrorSnackbar('Error autenticando usuario: $e');
+      // 5. Manejo de errores
+      setState(() => _isAuthenticated = false);
+      debugPrint('🔥 Error de autenticación: ${e.toString()}');
+      _showErrorSnackbar('Error de acceso: Verifica tus credenciales');
+    } finally {
+      // 6. Finalizar estado de carga
+      setState(() => _isAuthenticating = false);
     }
   }
 
@@ -972,15 +995,28 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
   Future _loadMessagesForGroup(String groupId) async {
     try {
       final response = await pb.collection('group_messages').getList(
-            filter: 'grupoId = "$groupId"', // Usar el campo correcto
+            filter: 'grupo = "$groupId"', // Usar el campo relation
             sort: '-created',
             expand: 'user',
           );
 
-      setState(() => messages = response.items);
+      setState(() {
+        messages = response.items;
+        _scrollToBottom();
+      });
+      // Notificar al widget padre con la lista de mensajes formateada
+      widget.listaMensajes(_formatMessages(messages));
+      debugPrint('📩 Mensajes cargados: ${messages.length}');
     } catch (e) {
       _showErrorSnackbar('Error cargando mensajes: $e');
     }
+    print('Cargando mensajes para grupo: ${widget.groupId}');
+    final response = await pb.collection('group_messages').getList(
+          filter: 'grupo = "${widget.groupId}"',
+          sort: '-created',
+          expand: 'user',
+        );
+    print('Respuesta de PB: ${response.items.length} mensajes');
   }
 
   Future _marcarMensajesComoVistos() async {
@@ -1009,7 +1045,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
               'mensajeUrl': message.data['mensajeUrl'] ?? '',
               'fechaMensaje': message.data['fechaMensaje'] ?? '',
               'imagenUrl': message.data['imagenUrl'] ?? '',
-              'grupoId': message.data['grupoId'] ?? '', // Para chats grupales
+              'grupoId': message.data['grupo'] ?? '', // Para chats grupales
               'tipo': message.data['tipo'] ?? '',
               'mensajeId': message.id,
               'visto': message.data['visto'] ?? false,
@@ -1175,6 +1211,31 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isAuthenticating) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (!_isAuthenticated) {
+      return Center(child: Text('Autenticación requerida'));
+    }
+
+    // Verificación MOVIDA aquí (después de autenticación, antes de mensajes)
+    if (widget.groupId.isEmpty) {
+      return Scaffold(
+        // Mantener Scaffold para estructura visual completa
+        body: Center(
+          child: Text(
+            'ID de grupo inválido',
+            style: TextStyle(color: Colors.red, fontSize: 18),
+          ),
+        ),
+      );
+    }
+
+    if (messages.isEmpty) {
+      return Center(child: Text('No hay mensajes'));
+    }
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -1191,7 +1252,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
             ),
           ),
 
-          // Icono de información del grupo personalizado
+          // Icono de información del grupo (solo si groupId es válido)
           if (widget.iconInfoGrupo != null)
             Positioned(
               top: MediaQuery.of(context).padding.top + 10,
@@ -1201,15 +1262,21 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                 child: widget.iconInfoGrupo!,
               ),
             ),
-
-          if (widget.groupId.isEmpty)
-            const Center(child: Text('ID de grupo inválido'))
         ],
       ),
     );
   }
 
   Widget _buildMessageList() {
+    // Añadir estados de carga y autenticación
+    if (!_isAuthenticated) {
+      return Center(child: Text('Autenticación requerida'));
+    }
+
+    if (messages.isEmpty) {
+      return Center(child: Text('No hay mensajes'));
+    }
+
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(
         scrollbars: false,
@@ -1222,35 +1289,47 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
         itemBuilder: (context, index) {
           final message = messages[index];
 
-          // Validar que el mensaje tenga datos válidos
-          if (message.data == null || message.data.isEmpty) {
+          // Validación mejorada de mensajes
+          if (message.data == null ||
+              message.data.isEmpty ||
+              message.data['created'] == null) {
             return Container(
               padding: const EdgeInsets.all(8),
               child: Text(
-                'Mensaje inválido',
+                'Mensaje corrupto',
                 style: TextStyle(color: Colors.red),
               ),
             );
           }
 
-          final messageDate = DateTime.parse(message.data['created']);
-          final currentSeparator = _getDaySeparator(messageDate);
+          try {
+            final messageDate = DateTime.parse(message.data['created']);
+            final currentSeparator = _getDaySeparator(messageDate);
 
-          String? previousSeparator;
-          if (index < messages.length - 1) {
-            final prevDate =
-                DateTime.parse(messages[index + 1].data['created']);
-            previousSeparator = _getDaySeparator(prevDate);
+            String? previousSeparator;
+            if (index < messages.length - 1) {
+              final prevDate =
+                  DateTime.parse(messages[index + 1].data['created']);
+              previousSeparator = _getDaySeparator(prevDate);
+            }
+
+            return Column(
+              children: [
+                if (previousSeparator != currentSeparator)
+                  _buildDateSeparator(currentSeparator),
+                _buildMessageBubble(message,
+                    message.getStringValue('user') == pb.authStore.model?.id),
+              ],
+            );
+          } catch (e) {
+            return Container(
+              padding: const EdgeInsets.all(8),
+              child: Text(
+                'Formato de fecha inválido',
+                style: TextStyle(color: Colors.red),
+              ),
+            );
           }
-
-          return Column(
-            children: [
-              if (previousSeparator != currentSeparator)
-                _buildDateSeparator(currentSeparator),
-              _buildMessageBubble(message,
-                  message.getStringValue('user') == pb.authStore.model?.id),
-            ],
-          );
         },
       ),
     );

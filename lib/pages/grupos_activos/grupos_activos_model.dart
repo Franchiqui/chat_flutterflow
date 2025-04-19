@@ -14,6 +14,7 @@ import 'dart:ui';
 import '/index.dart';
 import 'dart:async';
 import 'grupos_activos_widget.dart' show GruposActivosWidget;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -25,6 +26,8 @@ class GruposActivosModel extends FlutterFlowModel<GruposActivosWidget> {
   ///  State fields for stateful widgets in this page.
 
   Completer<ApiCallResponse>? apiRequestCompleter1;
+  // Stores action output result for [Backend Call - API (leerGrupo)] action in GruposActivos widget.
+  ApiCallResponse? grupooo;
   Completer<ApiCallResponse>? apiRequestCompleter2;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =

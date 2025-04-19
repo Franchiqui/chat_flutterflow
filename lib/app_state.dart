@@ -546,6 +546,8 @@ class FFAppState extends ChangeNotifier {
 
   List<String> _listaMiembros = [];
   List<String> get listaMiembros => _listaMiembros;
+
+  set fil(String fil) {}
   set listaMiembros(List<String> value) {
     _listaMiembros = value;
   }

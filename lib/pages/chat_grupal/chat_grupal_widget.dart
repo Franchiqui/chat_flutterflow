@@ -4,7 +4,6 @@ import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/components/fondo_copy_widget.dart';
 import '/components/opciones_grupos_widget.dart';
-import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
@@ -19,7 +18,6 @@ import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'chat_grupal_model.dart';
 export 'chat_grupal_model.dart';
@@ -32,6 +30,7 @@ class ChatGrupalWidget extends StatefulWidget {
     this.grupoId,
     this.fotoUrlB,
     this.userIdA,
+    this.miembros,
   });
 
   final String? nombreGrupo;
@@ -39,6 +38,7 @@ class ChatGrupalWidget extends StatefulWidget {
   final String? grupoId;
   final String? fotoUrlB;
   final String? userIdA;
+  final List<dynamic>? miembros;
 
   static String routeName = 'ChatGrupal';
   static String routePath = '/chatGrupal';
@@ -65,6 +65,9 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
       FFAppState().tamaoTexto = 22.0;
       FFAppState().tamano = 20.0;
       FFAppState().grupoName = widget!.nombreGrupo!;
+      FFAppState().grupoId = widget!.grupoId!;
+      FFAppState().listaMiembrosGrupo =
+          widget!.miembros!.toList().cast<dynamic>();
       safeSetState(() {});
       _model.url2 = await actions.getUrlImage(
         'https://pocketbase-chat.fly.dev',
@@ -2672,125 +2675,159 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                               ),
                                             ),
                                           ),
-                                          Material(
-                                            color: Colors.transparent,
-                                            elevation: 4.0,
-                                            shape: const CircleBorder(),
-                                            child: Container(
-                                              width: 45.0,
-                                              height: 45.0,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                ),
-                                              ),
-                                              child: InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  await Navigator.push(
-                                                    context,
-                                                    PageTransition(
-                                                      type: PageTransitionType
-                                                          .fade,
-                                                      child:
-                                                          FlutterFlowExpandedImageView(
-                                                        image: Image.network(
-                                                          'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${widget!.userIdB}/${widget!.fotoUrlB}',
-                                                          fit: BoxFit.contain,
-                                                        ),
-                                                        allowRotation: true,
-                                                        tag:
-                                                            'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${widget!.userIdB}/${widget!.fotoUrlB}',
-                                                        useHeroAnimation: true,
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Hero(
-                                                  tag:
-                                                      'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${widget!.userIdB}/${widget!.fotoUrlB}',
-                                                  transitionOnUserGestures:
-                                                      true,
-                                                  child: Container(
-                                                    width: 40.0,
-                                                    height: 40.0,
-                                                    clipBehavior:
-                                                        Clip.antiAlias,
-                                                    decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: Image.network(
-                                                      'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${widget!.userIdB}/${widget!.fotoUrlB}',
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    12.0, 0.0, 0.0, 0.0),
-                                            child: InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                await showModalBottomSheet(
-                                                  isScrollControlled: true,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  enableDrag: false,
-                                                  context: context,
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        7.0, 5.0, 0.0, 0.0),
+                                                child: Builder(
                                                   builder: (context) {
-                                                    return GestureDetector(
-                                                      onTap: () {
-                                                        FocusScope.of(context)
-                                                            .unfocus();
-                                                        FocusManager.instance
-                                                            .primaryFocus
-                                                            ?.unfocus();
-                                                      },
-                                                      child: Padding(
-                                                        padding: MediaQuery
-                                                            .viewInsetsOf(
-                                                                context),
-                                                        child:
-                                                            FondoCopyWidget(),
+                                                    final lisAvatar = widget!
+                                                            .miembros
+                                                            ?.toList() ??
+                                                        [];
+
+                                                    return SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: List.generate(
+                                                            lisAvatar.length,
+                                                            (lisAvatarIndex) {
+                                                          final lisAvatarItem =
+                                                              lisAvatar[
+                                                                  lisAvatarIndex];
+                                                          return Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0.22,
+                                                                    -0.78),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          2.0,
+                                                                          2.0,
+                                                                          9.0,
+                                                                          2.0),
+                                                              child: Container(
+                                                                width: 35.0,
+                                                                height: 35.0,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  shape: BoxShape
+                                                                      .circle,
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryText,
+                                                                  ),
+                                                                ),
+                                                                child:
+                                                                    Container(
+                                                                  width: 35.0,
+                                                                  height: 35.0,
+                                                                  clipBehavior:
+                                                                      Clip.antiAlias,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                  ),
+                                                                  child: Image
+                                                                      .network(
+                                                                    'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
+                                                                      lisAvatarItem,
+                                                                      r'''$.id''',
+                                                                    ).toString()}/${getJsonField(
+                                                                      lisAvatarItem,
+                                                                      r'''$.avatar''',
+                                                                    ).toString()}',
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }),
                                                       ),
                                                     );
                                                   },
-                                                ).then((value) =>
-                                                    safeSetState(() {}));
-                                              },
-                                              child: Text(
-                                                valueOrDefault<String>(
-                                                  FFAppState().grupoName,
-                                                  'Nombre Grupo',
                                                 ),
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryText,
-                                                      letterSpacing: 0.0,
-                                                    ),
                                               ),
-                                            ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        12.0, 0.0, 0.0, 3.0),
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    await showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      enableDrag: false,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return GestureDetector(
+                                                          onTap: () {
+                                                            FocusScope.of(
+                                                                    context)
+                                                                .unfocus();
+                                                            FocusManager
+                                                                .instance
+                                                                .primaryFocus
+                                                                ?.unfocus();
+                                                          },
+                                                          child: Padding(
+                                                            padding: MediaQuery
+                                                                .viewInsetsOf(
+                                                                    context),
+                                                            child:
+                                                                FondoCopyWidget(),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ).then((value) =>
+                                                        safeSetState(() {}));
+                                                  },
+                                                  child: Text(
+                                                    valueOrDefault<String>(
+                                                      widget!.nombreGrupo,
+                                                      'Nombre Grupo',
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
@@ -2860,11 +2897,12 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                                   .height *
                                               0.783,
                                           child: custom_widgets.GroupChatScreen(
+  key: ValueKey(widget!.grupoId!),
                                             width: double.infinity,
                                             height: MediaQuery.sizeOf(context)
                                                     .height *
                                                 0.783,
-                                            groupId: FFAppState().grupoId,
+                                            groupId: widget!.grupoId!,
                                             username:
                                                 currentUserData!.displayName,
                                             password:
@@ -2887,7 +2925,7 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                             textFielContainerColor:
                                                 FlutterFlowTheme.of(context)
                                                     .tertiary,
-                                            groupName: FFAppState().grupoName,
+                                            groupName: widget!.nombreGrupo!,
                                             enviar: FFAppState().enviar,
                                             audioPath: FFAppState().urlView,
                                             textoFile: _model
@@ -2909,11 +2947,8 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                             fechaTipoColor: Colors.white,
                                             fechaAudioColor: Colors.white,
                                             fechaAudioVozColor: Colors.white,
-                                            members: getJsonField(
-                                              columnLeerGrupoResponse.jsonBody,
-                                              r'''$.Miembros''',
-                                              true,
-                                            )!,
+                                            members:
+                                                FFAppState().listaMiembrosGrupo,
                                             iconInfoGrupo: Icon(
                                               Icons.groups,
                                               color:
@@ -2921,6 +2956,8 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                                       .primaryText,
                                               size: 36.0,
                                             ),
+                                            groupAvatarUrl:
+                                                'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/chat-4pf22a/assets/m1knjcgxzg02/Screenshot_2.png',
                                             listaMensajes: (mensaje) async {
                                               FFAppState().mistaMensajes =
                                                   mensaje
@@ -3564,30 +3601,17 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                                                       texto: _model
                                                                           .textFieldChatTextController
                                                                           .text,
-                                                                      grupoId: OpenAIChatGPTGroup
-                                                                          .leerGrupoCall
-                                                                          .id(
-                                                                        columnLeerGrupoResponse
-                                                                            .jsonBody,
-                                                                      ),
-                                                                      nombreGrupo: OpenAIChatGPTGroup
-                                                                          .leerGrupoCall
-                                                                          .nombre(
-                                                                        columnLeerGrupoResponse
-                                                                            .jsonBody,
-                                                                      ),
-                                                                      grupo: OpenAIChatGPTGroup
-                                                                          .leerGrupoCall
-                                                                          .id(
-                                                                        columnLeerGrupoResponse
-                                                                            .jsonBody,
-                                                                      ),
-                                                                      miembrosJson: OpenAIChatGPTGroup
-                                                                          .leerGrupoCall
-                                                                          .miembros(
-                                                                        columnLeerGrupoResponse
-                                                                            .jsonBody,
-                                                                      ),
+                                                                      grupoId:
+                                                                          FFAppState()
+                                                                              .grupoId,
+                                                                      nombreGrupo:
+                                                                          FFAppState()
+                                                                              .grupoName,
+                                                                      grupo: widget!
+                                                                          .grupoId,
+                                                                      miembrosJson:
+                                                                          FFAppState()
+                                                                              .listaMiembrosGrupo,
                                                                     );
 
                                                                     _model.apiResultw69 =
