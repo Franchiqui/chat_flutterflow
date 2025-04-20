@@ -4,6 +4,7 @@ import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/components/fondo_copy_widget.dart';
 import '/components/opciones_grupos_widget.dart';
+import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
@@ -18,6 +19,7 @@ import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'chat_grupal_model.dart';
 export 'chat_grupal_model.dart';
@@ -2734,28 +2736,92 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                                                         .secondaryText,
                                                                   ),
                                                                 ),
-                                                                child:
-                                                                    Container(
-                                                                  width: 35.0,
-                                                                  height: 35.0,
-                                                                  clipBehavior:
-                                                                      Clip.antiAlias,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    shape: BoxShape
-                                                                        .circle,
-                                                                  ),
-                                                                  child: Image
-                                                                      .network(
-                                                                    'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
+                                                                child: InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    await Navigator
+                                                                        .push(
+                                                                      context,
+                                                                      PageTransition(
+                                                                        type: PageTransitionType
+                                                                            .fade,
+                                                                        child:
+                                                                            FlutterFlowExpandedImageView(
+                                                                          image:
+                                                                              Image.network(
+                                                                            'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
+                                                                              lisAvatarItem,
+                                                                              r'''$.id''',
+                                                                            ).toString()}/${getJsonField(
+                                                                              lisAvatarItem,
+                                                                              r'''$.avatar''',
+                                                                            ).toString()}',
+                                                                            fit:
+                                                                                BoxFit.contain,
+                                                                          ),
+                                                                          allowRotation:
+                                                                              true,
+                                                                          tag:
+                                                                              'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
+                                                                            lisAvatarItem,
+                                                                            r'''$.id''',
+                                                                          ).toString()}/${getJsonField(
+                                                                            lisAvatarItem,
+                                                                            r'''$.avatar''',
+                                                                          ).toString()}',
+                                                                          useHeroAnimation:
+                                                                              true,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                  child: Hero(
+                                                                    tag:
+                                                                        'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
                                                                       lisAvatarItem,
                                                                       r'''$.id''',
                                                                     ).toString()}/${getJsonField(
                                                                       lisAvatarItem,
                                                                       r'''$.avatar''',
                                                                     ).toString()}',
-                                                                    fit: BoxFit
-                                                                        .cover,
+                                                                    transitionOnUserGestures:
+                                                                        true,
+                                                                    child:
+                                                                        Container(
+                                                                      width:
+                                                                          35.0,
+                                                                      height:
+                                                                          35.0,
+                                                                      clipBehavior:
+                                                                          Clip.antiAlias,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                      ),
+                                                                      child: Image
+                                                                          .network(
+                                                                        'https://pocketbase-chat.fly.dev/api/files/_pb_users_auth_/${getJsonField(
+                                                                          lisAvatarItem,
+                                                                          r'''$.id''',
+                                                                        ).toString()}/${getJsonField(
+                                                                          lisAvatarItem,
+                                                                          r'''$.avatar''',
+                                                                        ).toString()}',
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      ),
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
@@ -2900,7 +2966,7 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                             height: MediaQuery.sizeOf(context)
                                                     .height *
                                                 0.783,
-                                            groupId: widget!.grupoId!,
+                                            groupId: FFAppState().grupoId,
                                             username:
                                                 currentUserData!.displayName,
                                             password:
@@ -3594,27 +3660,6 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                                                             .text;
                                                                     safeSetState(
                                                                         () {});
-                                                                    await OpenAIChatGPTGroup
-                                                                        .crearMensajeGRUPOCall
-                                                                        .call(
-                                                                      user: currentUserData
-                                                                          ?.uid,
-                                                                      texto: _model
-                                                                          .textFieldChatTextController
-                                                                          .text,
-                                                                      grupoId:
-                                                                          FFAppState()
-                                                                              .grupoId,
-                                                                      nombreGrupo:
-                                                                          FFAppState()
-                                                                              .grupoName,
-                                                                      grupo: widget!
-                                                                          .grupoId,
-                                                                      miembrosJson:
-                                                                          FFAppState()
-                                                                              .listaMiembrosGrupo,
-                                                                    );
-
                                                                     _model.apiResultw69 =
                                                                         await OpenAIChatGPTGroup
                                                                             .actualizarCRUPOCall
@@ -3630,6 +3675,12 @@ class _ChatGrupalWidgetState extends State<ChatGrupalWidget> {
                                                                       fechaChat: dateTimeFormat(
                                                                           "d/M/y",
                                                                           getCurrentTimestamp),
+                                                                      miembrosJson:
+                                                                          widget!
+                                                                              .miembros,
+                                                                      lisIDList:
+                                                                          widget!
+                                                                              .lisID,
                                                                     );
 
                                                                     FFAppState()

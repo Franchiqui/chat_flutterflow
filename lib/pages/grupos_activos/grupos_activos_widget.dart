@@ -604,10 +604,8 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                               ),
                                                               'userIdA':
                                                                   serializeParam(
-                                                                getJsonField(
-                                                                  chatGrupalItem,
-                                                                  r'''$.user''',
-                                                                ).toString(),
+                                                                currentUserData
+                                                                    ?.uid,
                                                                 ParamType
                                                                     .String,
                                                               ),
@@ -716,7 +714,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                         .sizeOf(
                                                                             context)
                                                                     .height *
-                                                                0.15,
+                                                                0.14,
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: FlutterFlowTheme
@@ -740,7 +738,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                       .max,
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
-                                                                      .spaceEvenly,
+                                                                      .spaceBetween,
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment
                                                                       .start,
@@ -918,7 +916,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                                   children: [
                                                                                     Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 7.0),
                                                                                       child: Text(
                                                                                         valueOrDefault<String>(
                                                                                           getJsonField(
@@ -977,7 +975,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                   children: [
                                                                                     Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 7.0),
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 10.0),
                                                                                       child: Text(
                                                                                         valueOrDefault<String>(
                                                                                           getJsonField(
@@ -1105,6 +1103,13 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                         highlightColor:
                                                             Colors.transparent,
                                                         onTap: () async {
+                                                          FFAppState().fil =
+                                                              getJsonField(
+                                                            grupoItem,
+                                                            r'''$.Miembros[:].id''',
+                                                          ).toString();
+                                                          safeSetState(() {});
+
                                                           context.pushNamed(
                                                             ChatGrupalWidget
                                                                 .routeName,
@@ -1236,7 +1241,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                         .sizeOf(
                                                                             context)
                                                                     .height *
-                                                                0.15,
+                                                                0.14,
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: FlutterFlowTheme
@@ -1260,7 +1265,7 @@ class _GruposActivosWidgetState extends State<GruposActivosWidget> {
                                                                       .max,
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
-                                                                      .spaceEvenly,
+                                                                      .spaceBetween,
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment
                                                                       .start,

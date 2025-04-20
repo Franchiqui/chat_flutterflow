@@ -684,6 +684,7 @@ class _OpcionesGruposWidgetState extends State<OpcionesGruposWidget> {
                                         imagenUrl:
                                             'https://pocketbase-chat.fly.dev/api/files/gu05orqoyfhuujx/${recordId}/${pocketBaseFileName}',
                                         fileName: fileName,
+                                        grupoName: widget!.grupoName,
                                       );
 
                                       await Future.delayed(

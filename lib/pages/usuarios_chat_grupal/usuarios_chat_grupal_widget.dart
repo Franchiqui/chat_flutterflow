@@ -1290,18 +1290,6 @@ class _UsuariosChatGrupalWidgetState extends State<UsuariosChatGrupalWidget> {
                                                                               FFAppState().grupoId,
                                                                               ParamType.String,
                                                                             ),
-                                                                            'miembros':
-                                                                                serializeParam(
-                                                                              FFAppState().listaMiembrosGrupo,
-                                                                              ParamType.JSON,
-                                                                              isList: true,
-                                                                            ),
-                                                                            'lisID':
-                                                                                serializeParam(
-                                                                              FFAppState().lisID,
-                                                                              ParamType.String,
-                                                                              isList: true,
-                                                                            ),
                                                                           }.withoutNulls,
                                                                         );
                                                                       } else {
@@ -1631,18 +1619,6 @@ class _UsuariosChatGrupalWidgetState extends State<UsuariosChatGrupalWidget> {
                                                                                 serializeParam(
                                                                               FFAppState().grupoId,
                                                                               ParamType.String,
-                                                                            ),
-                                                                            'miembros':
-                                                                                serializeParam(
-                                                                              FFAppState().listaMiembrosGrupo,
-                                                                              ParamType.JSON,
-                                                                              isList: true,
-                                                                            ),
-                                                                            'lisID':
-                                                                                serializeParam(
-                                                                              FFAppState().lisID,
-                                                                              ParamType.String,
-                                                                              isList: true,
                                                                             ),
                                                                           }.withoutNulls,
                                                                         );

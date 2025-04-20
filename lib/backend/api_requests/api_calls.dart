@@ -1003,6 +1003,7 @@ class ActualizarCRUPOCall {
     String? horaChat = '',
     String? fechaChat = '',
     dynamic? miembrosJson,
+    List<String>? lisIDList,
   }) async {
     final baseUrl = OpenAIChatGPTGroup.getBaseUrl();
 
@@ -1040,6 +1041,7 @@ class ActualizarMensajesGRUPOCall {
     String? fileName = '',
     String? imagenUrl = '',
     String? mensajeUrl = '',
+    String? grupoName,
   }) async {
     final baseUrl = OpenAIChatGPTGroup.getBaseUrl();
 
